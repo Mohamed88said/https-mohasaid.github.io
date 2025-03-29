@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expériences Professionnelles - Mohamed Saïd Diallo</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title data-i18n="experience_title">Expériences Professionnelles - Mohamed Saïd Diallo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
@@ -16,6 +16,7 @@
             --dark: #2c3e50;
             --text-light: #ffffff;
             --text-dark: #333333;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -30,7 +31,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-bottom: 100px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         /* Mode Sombre */
@@ -65,7 +66,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .dark-mode-toggle:hover {
@@ -75,6 +76,32 @@
         .dark-mode-toggle i {
             color: white;
             font-size: 1.2rem;
+        }
+
+        /* Bouton Langue */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .language-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
         }
 
         /* Header */
@@ -111,7 +138,7 @@
             padding: 10px 20px;
             margin: 0 10px;
             border-radius: 30px;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-weight: 600;
         }
 
@@ -147,7 +174,7 @@
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition);
             opacity: 0;
             transform: translateY(20px);
         }
@@ -232,6 +259,22 @@
             width: 100%;
             z-index: 10;
         }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -252,96 +295,105 @@
                 margin: 5px;
                 padding: 8px 15px;
             }
+            
+            .language-switcher {
+                top: 70px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
         <i class="fas fa-moon"></i>
     </button>
 
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
+        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+    </div>
+
     <header>
-        <h1>Mes Expériences Professionnelles</h1>
+        <h1 data-i18n="experience_header">Mes Expériences Professionnelles</h1>
         <nav>
-            <a href="index.html">Accueil</a>
-            <a href="Parcoursacadémique.html">Parcours Académique</a>
-            <a href="expérience.html">Expériences</a>
-            <a href="certification.html">Certifications</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="nav_home">Accueil</a>
+            <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
+            <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
+            <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
+            <a href="contact.html" data-i18n="nav_contact">Contact</a>
         </nav>
     </header>
 
     <section class="intro">
-        <p>Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.</p>
+        <p data-i18n="experience_intro">Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.</p>
     </section>
 
     <section class="experience-container">
+        <!-- Stage en Banque -->
         <div class="experience-card">
             <div class="experience-header">
                 <div>
-                    <h2 class="experience-title">Stage en Banque</h2>
+                    <h2 class="experience-title" data-i18n="exp1_title">Stage en Banque</h2>
                     <div class="experience-company">
                         <i class="fas fa-building"></i>
-                        <span>UBA Guinée</span>
+                        <span data-i18n="exp1_company">UBA Guinée</span>
                     </div>
                 </div>
-                <span class="experience-date">Juillet 2023 - Septembre 2023</span>
+                <span class="experience-date" data-i18n="exp1_date">Juillet 2023 - Septembre 2023</span>
             </div>
             <div class="experience-description">
-                <p>Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :</p>
+                <p data-i18n="exp1_desc1">Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :</p>
                 <ul>
-                    <li>Accueil et conseil clientèle</li>
-                    <li>Participation aux opérations de prospection</li>
-                    <li>Analyse des dossiers de financement</li>
-                    <li>Découverte des outils bancaires internes</li>
+                    <li data-i18n="exp1_resp1">Accueil et conseil clientèle</li>
+                    <li data-i18n="exp1_resp2">Participation aux opérations de prospection</li>
+                    <li data-i18n="exp1_resp3">Analyse des dossiers de financement</li>
+                    <li data-i18n="exp1_resp4">Découverte des outils bancaires internes</li>
                 </ul>
             </div>
             <div class="skills-list">
-                <span class="skill-tag">Relation client</span>
-                <span class="skill-tag">Analyse financière</span>
-                <span class="skill-tag">Prospection</span>
-                <span class="skill-tag">Gestion de compte</span>
+                <span class="skill-tag" data-i18n="skill1">Relation client</span>
+                <span class="skill-tag" data-i18n="skill2">Analyse financière</span>
+                <span class="skill-tag" data-i18n="skill3">Prospection</span>
+                <span class="skill-tag" data-i18n="skill4">Gestion de compte</span>
             </div>
         </div>
 
+        <!-- Responsable débats -->
         <div class="experience-card">
             <div class="experience-header">
                 <div>
-                    <h2 class="experience-title">Responsable débats LCIn</h2>
+                    <h2 class="experience-title" data-i18n="exp2_title">Responsable débats LCIn</h2>
                     <div class="experience-company">
                         <i class="fas fa-store"></i>
-                        <span>Organisation Universitaire</span>
+                        <span data-i18n="exp2_company">Organisation Universitaire</span>
                     </div>
                 </div>
-                <span class="experience-date">2021 - 2022</span>
+                <span class="experience-date" data-i18n="exp2_date">2021 - 2022</span>
             </div>
             <div class="experience-description">
-                <p>En tant que responsable de l'Axe Débat au LCIn, j'animais des débats, organisais des événements et préparais des sujets de discussion sur des thématiques variées. J'avais également sous ma responsabilité une équipe de 10 personnes, que je coordonnais pour assurer le bon déroulement des activités et favoriser des échanges constructifs et dynamiques.</p>
+                <p data-i18n="exp2_desc">En tant que responsable de l'Axe Débat au LCIn, j'animais des débats, organisais des événements et préparais des sujets de discussion sur des thématiques variées. J'avais également sous ma responsabilité une équipe de 10 personnes, que je coordonnais pour assurer le bon déroulement des activités et favoriser des échanges constructifs et dynamiques.</p>
             </div>
             <div class="skills-list">
-                <span class="skill-tag">Gestion d'équipe</span>
-                <span class="skill-tag">Gestion de budget</span>
-                <span class="skill-tag">Trésorerie</span>
-                <span class="skill-tag">Planification</span>
+                <span class="skill-tag" data-i18n="skill5">Gestion d'équipe</span>
+                <span class="skill-tag" data-i18n="skill6">Gestion de budget</span>
+                <span class="skill-tag" data-i18n="skill7">Trésorerie</span>
+                <span class="skill-tag" data-i18n="skill8">Planification</span>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+        <p>&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span>.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
     </footer>
 
     <script>
-        // Vérifier le mode sombre au chargement
-        function checkDarkMode() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                const icon = document.querySelector('.dark-mode-toggle i');
-                icon.classList.replace('fa-moon', 'fa-sun');
-            }
-        }
-
-        // Mode sombre
+        // ============ DARK MODE ============
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const icon = document.querySelector('.dark-mode-toggle i');
@@ -355,10 +407,140 @@
             }
         }
 
-        // Animation au chargement
-        document.addEventListener("DOMContentLoaded", function() {
-            checkDarkMode();
+        // ============ LANGUE ============
+        const translations = {
+            'fr': {
+                // Navigation
+                'nav_home': 'Accueil',
+                'nav_academic': 'Parcours Académique',
+                'nav_experience': 'Expériences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact',
+                
+                // Titres
+                'experience_title': 'Expériences Professionnelles - Mohamed Saïd Diallo',
+                'experience_header': 'Mes Expériences Professionnelles',
+                'experience_intro': 'Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.',
+                
+                // Expérience 1
+                'exp1_title': 'Stage en Banque',
+                'exp1_company': 'UBA Guinée',
+                'exp1_date': 'Juillet 2023 - Septembre 2023',
+                'exp1_desc1': 'Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :',
+                'exp1_resp1': 'Accueil et conseil clientèle',
+                'exp1_resp2': 'Participation aux opérations de prospection',
+                'exp1_resp3': 'Analyse des dossiers de financement',
+                'exp1_resp4': 'Découverte des outils bancaires internes',
+                
+                // Expérience 2
+                'exp2_title': 'Responsable débats LCIn',
+                'exp2_company': 'Organisation Universitaire',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'En tant que responsable de l\'Axe Débat au LCIn, j\'animais des débats, organisais des événements et préparais des sujets de discussion sur des thématiques variées. J\'avais également sous ma responsabilité une équipe de 10 personnes, que je coordonnais pour assurer le bon déroulement des activités et favoriser des échanges constructifs et dynamiques.',
+                
+                // Compétences
+                'skill1': 'Relation client',
+                'skill2': 'Analyse financière',
+                'skill3': 'Prospection',
+                'skill4': 'Gestion de compte',
+                'skill5': 'Gestion d\'équipe',
+                'skill6': 'Gestion de budget',
+                'skill7': 'Trésorerie',
+                'skill8': 'Planification',
+                
+                // Footer
+                'rights': 'Tous droits réservés'
+            },
+            'en': {
+                // Navigation
+                'nav_home': 'Home',
+                'nav_academic': 'Academic Journey',
+                'nav_experience': 'Experiences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact',
+                
+                // Titres
+                'experience_title': 'Professional Experiences - Mohamed Saïd Diallo',
+                'experience_header': 'My Professional Experiences',
+                'experience_intro': 'Discover my professional journey and the skills acquired through my experiences.',
+                
+                // Expérience 1
+                'exp1_title': 'Bank Internship',
+                'exp1_company': 'UBA Guinea',
+                'exp1_date': 'July 2023 - September 2023',
+                'exp1_desc1': 'Complete immersion in the banking sector with active participation in daily operations. Responsibilities included:',
+                'exp1_resp1': 'Customer reception and advice',
+                'exp1_resp2': 'Participation in prospecting operations',
+                'exp1_resp3': 'Analysis of financing files',
+                'exp1_resp4': 'Discovery of internal banking tools',
+                
+                // Expérience 2
+                'exp2_title': 'Debate Manager LCIn',
+                'exp2_company': 'University Organization',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'As head of the Debate Axis at LCIn, I moderated debates, organized events and prepared discussion topics on various themes. I was also responsible for a team of 10 people, whom I coordinated to ensure the smooth running of activities and promote constructive and dynamic exchanges.',
+                
+                // Compétences
+                'skill1': 'Customer relationship',
+                'skill2': 'Financial analysis',
+                'skill3': 'Prospecting',
+                'skill4': 'Account management',
+                'skill5': 'Team management',
+                'skill6': 'Budget management',
+                'skill7': 'Treasury',
+                'skill8': 'Planning',
+                
+                // Footer
+                'rights': 'All rights reserved'
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Sauvegarder la langue sélectionnée
+            localStorage.setItem('language', lang);
             
+            // Mettre à jour les boutons de langue
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang.toUpperCase()) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Traduire le contenu
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Mettre à jour l'attribut lang de l'HTML
+            document.documentElement.lang = lang;
+            
+            // Mettre à jour le titre de la page
+            if (translations[lang] && translations[lang]['experience_title']) {
+                document.title = translations[lang]['experience_title'];
+            }
+        }
+
+        // ============ INITIALISATION ============
+        document.addEventListener("DOMContentLoaded", function() {
+            // Vérifier le mode sombre au chargement
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('.dark-mode-toggle i');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Vérifier la langue au chargement
+            const savedLang = localStorage.getItem('language') || 'fr';
+            changeLanguage(savedLang);
+            
+            // Mettre à jour l'année courante
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Animation des cartes
             const cards = document.querySelectorAll('.experience-card');
             cards.forEach((card, index) => {
                 setTimeout(() => {
