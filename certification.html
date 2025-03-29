@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certifications - Mohamed Saïd Diallo</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title data-i18n="certifications_title">Certifications - Mohamed Saïd Diallo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
@@ -16,6 +16,7 @@
             --dark: #2c3e50;
             --text-light: #ffffff;
             --text-dark: #333333;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -30,7 +31,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-bottom: 150px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         /* Mode Sombre */
@@ -39,7 +40,8 @@
             color: var(--text-light);
         }
 
-        body.dark-mode .container {
+        body.dark-mode .container,
+        body.dark-mode .certification-card {
             background: #222;
             color: var(--text-light);
         }
@@ -49,7 +51,7 @@
         }
 
         body.dark-mode .certification-card {
-            background: #333;
+            border-color: #444;
         }
 
         /* Bouton Mode Sombre */
@@ -68,7 +70,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .dark-mode-toggle:hover {
@@ -78,6 +80,32 @@
         .dark-mode-toggle i {
             color: white;
             font-size: 1.2rem;
+        }
+
+        /* Bouton Langue */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .language-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
         }
 
         /* Header */
@@ -114,7 +142,7 @@
             padding: 10px 20px;
             margin: 0 10px;
             border-radius: 30px;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-weight: 600;
         }
 
@@ -152,14 +180,10 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: var(--transition);
             border: 1px solid #eee;
             display: flex;
             flex-direction: column;
-        }
-
-        body.dark-mode .certification-card {
-            border-color: #444;
         }
 
         .certification-card:hover {
@@ -238,7 +262,7 @@
             text-decoration: none;
             text-align: center;
             margin-top: auto;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-weight: 600;
         }
 
@@ -324,6 +348,22 @@
             width: 100%;
             z-index: 10;
         }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -343,73 +383,84 @@
             .modal-content {
                 width: 95%;
             }
+            
+            .language-switcher {
+                top: 70px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
         <i class="fas fa-moon"></i>
     </button>
 
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
+        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+    </div>
+
     <header>
-        <h1>Mohamed Saïd Diallo</h1>
+        <h1 data-i18n="header_name">Mohamed Saïd Diallo</h1>
         <nav>
-            <a href="index.html">Accueil</a>
-            <a href="Parcoursacadémique.html">Parcours Académique</a>
-            <a href="expérience.html">Expériences</a>
-            <a href="certification.html">Certifications</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="nav_home">Accueil</a>
+            <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
+            <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
+            <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
+            <a href="contact.html" data-i18n="nav_contact">Contact</a>
         </nav>
     </header>
 
     <!-- section class="container">
-        <h2>Mes Certifications</h2>
-        <p>Découvrez l'ensemble des certifications que j'ai obtenues dans le domaine financier et ailleur.</p>
+        <h2 data-i18n="certifications_header">Mes Certifications</h2>
+        <p data-i18n="certifications_intro">Découvrez l'ensemble des certifications que j'ai obtenues dans le domaine financier et ailleur.</p>
         
         <div class="certifications-grid">
             <!-- Certification 1 -->
             <!--div class="certification-card">
                 <div class="certification-image">
-                    <img src="https://via.placeholder.com/400x200?text=Certification+Finance" alt="Certification en Analyse Financière">
-                    <span class="certification-badge">Validée</span>
+                    <img src="https://via.placeholder.com/400x200?text=Certification+Finance" alt="Certification en Analyse Financière" data-i18n="cert1_img_alt">
+                    <span class="certification-badge" data-i18n="badge_validated">Validée</span>
                 </div>
                 <div class="certification-content">
-                    <h3 class="certification-title">Analyse Financière Avancée</h3>
-                    <div class="certification-org">Institut Bancaire International</div>
-                    <div class="certification-date">Obtenue en Mars 2023</div>
-                    <a href="#" class="certification-btn" onclick="openModal('certif1')">Voir détails</a>
+                    <h3 class="certification-title" data-i18n="cert1_title">Analyse Financière Avancée</h3>
+                    <div class="certification-org" data-i18n="cert1_org">Institut Bancaire International</div>
+                    <div class="certification-date" data-i18n="cert1_date">Obtenue en Mars 2023</div>
+                    <a href="#" class="certification-btn" onclick="openModal('certif1')" data-i18n="btn_details">Voir détails</a>
                 </div>
             </div>
             
             <!-- Certification 2 -->
             <!--div class="certification-card">
                 <div class="certification-image">
-                    <img src="https://via.placeholder.com/400x200?text=Certification+Risk" alt="Certification en Risk Management">
-                    <span class="certification-badge">Validée</span>
+                    <img src="https://via.placeholder.com/400x200?text=Certification+Risk" alt="Certification en Risk Management" data-i18n="cert2_img_alt">
+                    <span class="certification-badge" data-i18n="badge_validated">Validée</span>
                 </div>
                 <div class="certification-content">
-                    <h3 class="certification-title">Risk Management Bancaire</h3>
-                    <div class="certification-org">École de Finance Européenne</div>
-                    <div class="certification-date">Obtenue en Novembre 2022</div>
-                    <a href="#" class="certification-btn" onclick="openModal('certif2')">Voir détails</a>
+                    <h3 class="certification-title" data-i18n="cert2_title">Risk Management Bancaire</h3>
+                    <div class="certification-org" data-i18n="cert2_org">École de Finance Européenne</div>
+                    <div class="certification-date" data-i18n="cert2_date">Obtenue en Novembre 2022</div>
+                    <a href="#" class="certification-btn" onclick="openModal('certif2')" data-i18n="btn_details">Voir détails</a>
                 </div>
             </div>
             
             <!-- Certification 3 -->
             <!--div class="certification-card">
                 <div class="certification-image">
-                    <img src="https://via.placeholder.com/400x200?text=Certification+Data" alt="Certification en Data Banking">
-                    <span class="certification-badge">En cours</span>
+                    <img src="https://via.placeholder.com/400x200?text=Certification+Data" alt="Certification en Data Banking" data-i18n="cert3_img_alt">
+                    <span class="certification-badge" data-i18n="badge_in_progress">En cours</span>
                 </div>
                 <div class="certification-content">
-                    <h3 class="certification-title">Data Science pour la Banque</h3>
-                    <div class="certification-org">Digital Finance Institute</div>
-                    <div class="certification-date">En cours - Fin prévue Juin 2024</div>
-                    <a href="#" class="certification-btn" onclick="openModal('certif3')">Voir détails</a>
+                    <h3 class="certification-title" data-i18n="cert3_title">Data Science pour la Banque</h3>
+                    <div class="certification-org" data-i18n="cert3_org">Digital Finance Institute</div>
+                    <div class="certification-date" data-i18n="cert3_date">En cours - Fin prévue Juin 2024</div>
+                    <a href="#" class="certification-btn" onclick="openModal('certif3')" data-i18n="btn_details">Voir détails</a>
                 </div>
             </div>
         </div>
-    <!--/section>
+    </section>
 
     <!-- Modal -->
     <!--div id="certification-modal" class="modal">
@@ -421,89 +472,222 @@
             <div class="modal-body">
                 <img id="modal-image" src="" alt="" class="modal-image">
                 <div id="modal-details">
-                    <p><strong>Organisme :</strong> <span id="modal-org"></span></p>
-                    <p><strong>Date d'obtention :</strong> <span id="modal-date"></span></p>
-                    <p><strong>Compétences validées :</strong></p>
+                    <p><strong data-i18n="modal_org">Organisme :</strong> <span id="modal-org"></span></p>
+                    <p><strong data-i18n="modal_date">Date d'obtention :</strong> <span id="modal-date"></span></p>
+                    <p><strong data-i18n="modal_skills">Compétences validées :</strong></p>
                     <ul id="modal-skills"></ul>
-                    <p><strong>Description :</strong></p>
+                    <p><strong data-i18n="modal_description">Description :</strong></p>
                     <p id="modal-description"></p>
-                    <a id="modal-link" href="#" target="_blank" class="certification-btn">Voir la certification</a>
+                    <a id="modal-link" href="#" target="_blank" class="certification-btn" data-i18n="btn_view_certif">Voir la certification</a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+        <p>&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span>.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
     </footer>
 
     <script>
-        // Données des certifications
+        // ============ DONNÉES DES CERTIFICATIONS ============
         const certificationsData = {
             'certif1': {
-                title: "Analyse Financière Avancée",
+                title: {
+                    'fr': "Analyse Financière Avancée",
+                    'en': "Advanced Financial Analysis"
+                },
                 image: "https://via.placeholder.com/800x400?text=Certification+Finance+Détails",
-                org: "Institut Bancaire International",
-                date: "Mars 2023",
-                skills: [
-                    "Analyse des états financiers",
-                    "Évaluation d'entreprise",
-                    "Diagnostic financier",
-                    "Prévisions financières"
-                ],
-                description: "Cette certification valide mes compétences avancées en analyse financière, avec une spécialisation dans le secteur bancaire. Le programme couvrait les méthodes d'évaluation d'entreprise, l'analyse de la performance financière et les techniques de prévision.",
+                org: {
+                    'fr': "Institut Bancaire International",
+                    'en': "International Banking Institute"
+                },
+                date: {
+                    'fr': "Mars 2023",
+                    'en': "March 2023"
+                },
+                skills: {
+                    'fr': [
+                        "Analyse des états financiers",
+                        "Évaluation d'entreprise",
+                        "Diagnostic financier",
+                        "Prévisions financières"
+                    ],
+                    'en': [
+                        "Financial statements analysis",
+                        "Business valuation",
+                        "Financial diagnosis",
+                        "Financial forecasts"
+                    ]
+                },
+                description: {
+                    'fr': "Cette certification valide mes compétences avancées en analyse financière, avec une spécialisation dans le secteur bancaire. Le programme couvrait les méthodes d'évaluation d'entreprise, l'analyse de la performance financière et les techniques de prévision.",
+                    'en': "This certification validates my advanced skills in financial analysis, with a specialization in the banking sector. The program covered business valuation methods, financial performance analysis and forecasting techniques."
+                },
                 link: "#"
             },
             'certif2': {
-                title: "Risk Management Bancaire",
+                title: {
+                    'fr': "Risk Management Bancaire",
+                    'en': "Bank Risk Management"
+                },
                 image: "https://via.placeholder.com/800x400?text=Certification+Risk+Détails",
-                org: "École de Finance Européenne",
-                date: "Novembre 2022",
-                skills: [
-                    "Identification des risques",
-                    "Mesure et quantification",
-                    "Stratégies de mitigation",
-                    "Réglementation Bâle III"
-                ],
-                description: "Certification professionnelle en gestion des risques bancaires couvrant l'ensemble du processus de management du risque, depuis l'identification jusqu'à la mise en place de stratégies de mitigation conformes aux réglementations internationales.",
+                org: {
+                    'fr': "École de Finance Européenne",
+                    'en': "European Finance School"
+                },
+                date: {
+                    'fr': "Novembre 2022",
+                    'en': "November 2022"
+                },
+                skills: {
+                    'fr': [
+                        "Identification des risques",
+                        "Mesure et quantification",
+                        "Stratégies de mitigation",
+                        "Réglementation Bâle III"
+                    ],
+                    'en': [
+                        "Risk identification",
+                        "Measurement and quantification",
+                        "Mitigation strategies",
+                        "Basel III regulation"
+                    ]
+                },
+                description: {
+                    'fr': "Certification professionnelle en gestion des risques bancaires couvrant l'ensemble du processus de management du risque, depuis l'identification jusqu'à la mise en place de stratégies de mitigation conformes aux réglementations internationales.",
+                    'en': "Professional certification in bank risk management covering the entire risk management process, from identification to implementation of mitigation strategies compliant with international regulations."
+                },
                 link: "#"
             },
             'certif3': {
-                title: "Data Science pour la Banque",
+                title: {
+                    'fr': "Data Science pour la Banque",
+                    'en': "Data Science for Banking"
+                },
                 image: "https://via.placeholder.com/800x400?text=Certification+Data+Détails",
-                org: "Digital Finance Institute",
-                date: "En cours - Fin prévue Juin 2024",
-                skills: [
-                    "Python pour la finance",
-                    "Machine Learning appliqué",
-                    "Analyse prédictive",
-                    "Visualisation de données"
-                ],
-                description: "Programme intensif de 6 mois sur l'application des techniques de data science et d'intelligence artificielle dans le secteur bancaire. Acquisition de compétences en analyse prédictive et en automatisation des processus d'analyse financière.",
+                org: {
+                    'fr': "Digital Finance Institute",
+                    'en': "Digital Finance Institute"
+                },
+                date: {
+                    'fr': "En cours - Fin prévue Juin 2024",
+                    'en': "In progress - Expected completion June 2024"
+                },
+                skills: {
+                    'fr': [
+                        "Python pour la finance",
+                        "Machine Learning appliqué",
+                        "Analyse prédictive",
+                        "Visualisation de données"
+                    ],
+                    'en': [
+                        "Python for finance",
+                        "Applied Machine Learning",
+                        "Predictive analysis",
+                        "Data visualization"
+                    ]
+                },
+                description: {
+                    'fr': "Programme intensif de 6 mois sur l'application des techniques de data science et d'intelligence artificielle dans le secteur bancaire. Acquisition de compétences en analyse prédictive et en automatisation des processus d'analyse financière.",
+                    'en': "6-month intensive program on the application of data science and artificial intelligence techniques in the banking sector. Acquisition of skills in predictive analysis and automation of financial analysis processes."
+                },
                 link: "#"
             }
         };
 
+        // ============ TRADUCTIONS ============
+        const translations = {
+            'fr': {
+                // Navigation
+                'nav_home': 'Accueil',
+                'nav_academic': 'Parcours Académique',
+                'nav_experience': 'Expériences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact',
+                
+                // Titres
+                'certifications_title': 'Certifications - Mohamed Saïd Diallo',
+                'certifications_header': 'Mes Certifications',
+                'certifications_intro': 'Découvrez l\'ensemble des certifications que j\'ai obtenues dans le domaine financier et ailleur.',
+                'header_name': 'Mohamed Saïd Diallo',
+                
+                // Badges
+                'badge_validated': 'Validée',
+                'badge_in_progress': 'En cours',
+                
+                // Boutons
+                'btn_details': 'Voir détails',
+                'btn_view_certif': 'Voir la certification',
+                
+                // Modal
+                'modal_org': 'Organisme :',
+                'modal_date': 'Date d\'obtention :',
+                'modal_skills': 'Compétences validées :',
+                'modal_description': 'Description :',
+                
+                // Footer
+                'rights': 'Tous droits réservés'
+            },
+            'en': {
+                // Navigation
+                'nav_home': 'Home',
+                'nav_academic': 'Academic Journey',
+                'nav_experience': 'Experiences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact',
+                
+                // Titres
+                'certifications_title': 'Certifications - Mohamed Saïd Diallo',
+                'certifications_header': 'My Certifications',
+                'certifications_intro': 'Discover all the certifications I have obtained in the financial field and elsewhere.',
+                'header_name': 'Mohamed Saïd Diallo',
+                
+                // Badges
+                'badge_validated': 'Validated',
+                'badge_in_progress': 'In progress',
+                
+                // Boutons
+                'btn_details': 'View details',
+                'btn_view_certif': 'View certification',
+                
+                // Modal
+                'modal_org': 'Organization :',
+                'modal_date': 'Obtained date :',
+                'modal_skills': 'Validated skills :',
+                'modal_description': 'Description :',
+                
+                // Footer
+                'rights': 'All rights reserved'
+            }
+        };
+
+        // ============ FONCTIONS ============
         // Ouvrir le modal
         function openModal(certifId) {
+            const lang = localStorage.getItem('language') || 'fr';
             const certif = certificationsData[certifId];
             const modal = document.getElementById('certification-modal');
             
-            document.getElementById('modal-title').textContent = certif.title;
+            document.getElementById('modal-title').textContent = certif.title[lang];
             document.getElementById('modal-image').src = certif.image;
-            document.getElementById('modal-image').alt = certif.title;
-            document.getElementById('modal-org').textContent = certif.org;
-            document.getElementById('modal-date').textContent = certif.date;
+            document.getElementById('modal-image').alt = certif.title[lang];
+            document.getElementById('modal-org').textContent = certif.org[lang];
+            document.getElementById('modal-date').textContent = certif.date[lang];
             
             const skillsList = document.getElementById('modal-skills');
             skillsList.innerHTML = '';
-            certif.skills.forEach(skill => {
+            certif.skills[lang].forEach(skill => {
                 const li = document.createElement('li');
                 li.textContent = skill;
                 skillsList.appendChild(li);
             });
             
-            document.getElementById('modal-description').textContent = certif.description;
+            document.getElementById('modal-description').textContent = certif.description[lang];
             document.getElementById('modal-link').href = certif.link;
             
             modal.style.display = 'block';
@@ -514,14 +698,6 @@
         function closeModal() {
             document.getElementById('certification-modal').style.display = 'none';
             document.body.style.overflow = 'auto';
-        }
-
-        // Fermer en cliquant à l'extérieur
-        window.onclick = function(event) {
-            const modal = document.getElementById('certification-modal');
-            if (event.target == modal) {
-                closeModal();
-            }
         }
 
         // Mode sombre
@@ -538,13 +714,59 @@
             }
         }
 
-        // Vérifier le mode sombre au chargement
+        // Changer la langue
+        function changeLanguage(lang) {
+            // Sauvegarder la langue sélectionnée
+            localStorage.setItem('language', lang);
+            
+            // Mettre à jour les boutons de langue
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang.toUpperCase()) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Traduire le contenu statique
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Mettre à jour l'attribut lang de l'HTML
+            document.documentElement.lang = lang;
+            
+            // Mettre à jour le titre de la page
+            if (translations[lang] && translations[lang]['certifications_title']) {
+                document.title = translations[lang]['certifications_title'];
+            }
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            const modal = document.getElementById('certification-modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // ============ INITIALISATION ============
         document.addEventListener("DOMContentLoaded", function() {
+            // Vérifier le mode sombre au chargement
             if (localStorage.getItem('darkMode') === 'enabled') {
                 document.body.classList.add('dark-mode');
                 const icon = document.querySelector('.dark-mode-toggle i');
                 icon.classList.replace('fa-moon', 'fa-sun');
             }
+            
+            // Vérifier la langue au chargement
+            const savedLang = localStorage.getItem('language') || 'fr';
+            changeLanguage(savedLang);
+            
+            // Mettre à jour l'année courante
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
 </body>
