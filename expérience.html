@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expériences Professionnelles - Mohamed Saïd Diallo</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 100px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mode Sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .experience-container,
+        body.dark-mode .experience-card {
+            background: #222;
+            color: var(--text-light);
+        }
+
+        body.dark-mode footer {
+            background: #111;
+        }
+
+        /* Bouton Mode Sombre */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--secondary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .dark-mode-toggle i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Contenu principal */
+        .intro {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .intro {
+            color: var(--text-light);
+        }
+
+        /* Expériences */
+        .experience-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .experience-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .experience-title {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .experience-date {
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .experience-company {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .experience-company i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+
+        .experience-description {
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: var(--light);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .skill-tag {
+            background: #333;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .experience-date {
+                margin-top: 10px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>Mes Expériences Professionnelles</h1>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="Parcoursacadémique.html">Parcours Académique</a>
+            <a href="expérience.html">Expériences</a>
+            <a href="certification.html">Certifications</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="intro">
+        <p>Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.</p>
+    </section>
+
+    <section class="experience-container">
+        <div class="experience-card">
+            <div class="experience-header">
+                <div>
+                    <h2 class="experience-title">Stage en Banque</h2>
+                    <div class="experience-company">
+                        <i class="fas fa-building"></i>
+                        <span>UBA Guinée</span>
+                    </div>
+                </div>
+                <span class="experience-date">Juillet 2023 - Septembre 2023</span>
+            </div>
+            <div class="experience-description">
+                <p>Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :</p>
+                <ul>
+                    <li>Accueil et conseil clientèle</li>
+                    <li>Participation aux opérations de prospection</li>
+                    <li>Analyse des dossiers de financement</li>
+                    <li>Découverte des outils bancaires internes</li>
+                </ul>
+            </div>
+            <div class="skills-list">
+                <span class="skill-tag">Relation client</span>
+                <span class="skill-tag">Analyse financière</span>
+                <span class="skill-tag">Prospection</span>
+                <span class="skill-tag">Gestion de compte</span>
+            </div>
+        </div>
+
+        <div class="experience-card">
+            <div class="experience-header">
+                <div>
+                    <h2 class="experience-title">Responsable débats LCIn</h2>
+                    <div class="experience-company">
+                        <i class="fas fa-store"></i>
+                        <span>Organisation Universitaire</span>
+                    </div>
+                </div>
+                <span class="experience-date">2021 - 2022</span>
+            </div>
+            <div class="experience-description">
+                <p>En tant que responsable de l'Axe Débat au LCIn, j'animais des débats, organisais des événements et préparais des sujets de discussion sur des thématiques variées. J'avais également sous ma responsabilité une équipe de 10 personnes, que je coordonnais pour assurer le bon déroulement des activités et favoriser des échanges constructifs et dynamiques.</p>
+            </div>
+            <div class="skills-list">
+                <span class="skill-tag">Gestion d'équipe</span>
+                <span class="skill-tag">Gestion de budget</span>
+                <span class="skill-tag">Trésorerie</span>
+                <span class="skill-tag">Planification</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Vérifier le mode sombre au chargement
+        function checkDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('.dark-mode-toggle i');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        // Mode sombre
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Animation au chargement
+        document.addEventListener("DOMContentLoaded", function() {
+            checkDarkMode();
+            
+            const cards = document.querySelectorAll('.experience-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, 200 * index);
+            });
+        });
+    </script>
+</body>
+</html>

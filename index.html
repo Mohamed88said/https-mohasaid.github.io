@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Saïd Diallo</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 150px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mode Sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .container {
+            background: #222;
+            color: var(--text-light);
+        }
+
+        body.dark-mode footer {
+            background: #111;
+        }
+
+        body.dark-mode .skill-bar {
+            background: #444;
+        }
+
+        body.dark-mode .timeline-point {
+            background: #222;
+        }
+
+        body.dark-mode .description-card {
+            background: #333;
+            color: white;
+        }
+
+        /* Bouton Mode Sombre */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--secondary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .dark-mode-toggle i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Section Hero */
+        .hero {
+            max-width: 1000px;
+            margin: 40px auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 30px;
+        }
+
+        .photo-wrapper {
+            display: inline-block;
+            padding: 10px;
+        }
+        
+        .photo-container {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(45deg, #f5f7fa 0%, #e4e8eb 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .photo-image {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: grayscale(20%);
+            transition: all 0.5s ease;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin: 10px 0 20px;
+            font-weight: 600;
+        }
+
+        /* Conteneurs */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Compétences */
+        .skill {
+            margin-bottom: 15px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            padding: 40px 0;
+            height: 350px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+
+        .timeline-point {
+            position: absolute;
+            background: white;
+            color: var(--secondary);
+            padding: 12px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            text-align: center;
+            transition: all 0.3s;
+            z-index: 2;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-point:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Positionnement en S inversé (2024 en haut) */
+        .timeline-point:nth-child(1) { top: 20px; left: 30%; }   /* 2024 */
+        .timeline-point:nth-child(2) { top: 80px; left: 70%; }   /* 2023 */
+        .timeline-point:nth-child(3) { top: 140px; left: 30%; }  /* 2022 */
+        .timeline-point:nth-child(4) { top: 200px; left: 70%; }  /* 2021 */
+        .timeline-point:nth-child(5) { top: 260px; left: 30%; }  /* 2020 */
+
+        /* Description Card */
+        .description-card {
+            position: absolute;
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 10;
+        }
+
+        .description-card h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Boutons */
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .secondary {
+            background: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        body.dark-mode .secondary {
+            background: #222;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .timeline-point {
+                width: 50px;
+                height: 50px;
+                font-size: 0.8rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+
+            .timeline {
+                height: 400px;
+            }
+
+            .timeline-point:nth-child(1) { top: 20px; left: 20%; }
+            .timeline-point:nth-child(2) { top: 100px; left: 80%; }
+            .timeline-point:nth-child(3) { top: 180px; left: 20%; }
+            .timeline-point:nth-child(4) { top: 260px; left: 80%; }
+            .timeline-point:nth-child(5) { top: 340px; left: 20%; }
+
+            .description-card {
+                width: 250px;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>Mohamed Saïd Diallo</h1>
+        <h3>﷽</h3>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="Parcoursacadémique.html">Parcours Académique</a>
+            <a href="expérience.html">Expériences</a>
+            <a href="certification.html">Certifications</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="photo-wrapper">
+            <div class="photo-container" 
+                 onmouseover="animatePhoto('in')" 
+                 onmouseout="animatePhoto('out')">
+              <img src="https://i.ibb.co/Mxtn0PcZ/image.png" 
+                   alt="Photo professionnelle" 
+                   class="photo-image">
+            </div>
+        </div>
+        <div class="hero-text">
+            <h2>À propos de moi</h2>
+            <p class="tagline">Étudiant en Economie APE | Management</p>
+            <p>Le succès est la somme de petits efforts répétés jour après jour.</p>
+            
+            <div class="cta-container">
+                <a href="contact.html" class="cta-button">Contactez-moi</a>
+                <a href="https://drive.google.com/file/d/1akRujVxCqZ_S1X3PFFgeR7CHPpxRDsCv/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cta-button secondary">Télécharger mon CV</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Compétences</h2>
+        <div class="skill">
+            <span>Management /Gestion de projet</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 85%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Comptabilité</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 65%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Audit/Contrôle</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 70%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Prospection client</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 80%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Outils financiers</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 70%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Sage Office /Html CSS PhotoShop /Canva</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 60%"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Langues</h2>
+        <div class="skill">
+            <span>Français (Langue maternelle)</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Anglais (Intermédiaire)</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 65%"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <span>Pular hahaha</span>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 30%"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Mon Parcours</h2>
+        <div class="timeline">
+            <!-- Ordre inversé (2024 en premier) -->
+            <div class="timeline-point" 
+                 onmouseover="showDescription(event, '2024-2025')" 
+                 onmouseout="hideDescription('2024-2025')">2024-2025</div>
+            <div class="timeline-point" 
+                 onmouseover="showDescription(event, '2023')" 
+                 onmouseout="hideDescription('2023')">2023</div>
+            <div class="timeline-point" 
+                 onmouseover="showDescription(event, '2022')" 
+                 onmouseout="hideDescription('2022')">2022</div>
+            <div class="timeline-point" 
+                 onmouseover="showDescription(event, '2021')" 
+                 onmouseout="hideDescription('2021')">2021</div>
+            <div class="timeline-point" 
+                 onmouseover="showDescription(event, '2020')" 
+                 onmouseout="hideDescription('2020')">2020</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Animation des barres de compétences
+        document.addEventListener("DOMContentLoaded", function() {
+            const skillBars = document.querySelectorAll('.skill-level');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+            
+            // Vérifier le mode sombre au chargement
+            checkDarkMode();
+        });
+
+        // Fonction pour vérifier l'état du mode sombre
+        function checkDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('.dark-mode-toggle i');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        // Mode sombre
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Animation photo
+        function animatePhoto(direction) {
+            const container = document.querySelector('.photo-container');
+            const image = document.querySelector('.photo-image');
+            
+            if (direction === 'in') {
+                container.style.transform = 'scale(1.05)';
+                container.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+                image.style.filter = 'grayscale(0%) brightness(1.05)';
+                image.style.width = '95%';
+                image.style.height = '95%';
+            } else {
+                container.style.transform = 'scale(1)';
+                container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                image.style.filter = 'grayscale(20%)';
+                image.style.width = '90%';
+                image.style.height = '90%';
+            }
+        }
+
+        // Dictionnaire des descriptions par année (ordre inversé)
+        const timelineData = {
+            '2024-2025': {
+                title: "Licence APE",
+                description: "Actuellement en Licence 3 APE à l'Université Rouen, en recherche d'alternance."
+            },
+            '2023': {
+                title: "Licence 2 en Economie",
+                description: "Obtention de ma licence 2 economie."
+            },
+            '2022': {
+                title: "Stage en Banque Commerciale",
+                description: "Stage de 3 mois à la Banque UBA où j'ai découvert les opérations de base en finance et la relation client."
+            },
+            '2021': {
+                title: "1ère Année de Licence en Économie",
+                description: "Début de mon parcours universitaire à l'Université ISCAEG avec une spécialisation en Comptabilité et audit."
+            },
+            '2020': {
+                title: "Baccalauréat Scientifique",
+                description: "Obtention de mon baccalauréat scientifique avec mention au Lycée Saint-georges. Spécialisation en mathématiques et sciences physiques."
+            }
+        };
+
+        // Fonction pour afficher les descriptions
+        function showDescription(event, year) {
+            // Supprimer toute description existante
+            const existingDesc = document.querySelector('.description-card');
+            if (existingDesc) existingDesc.remove();
+            
+            const data = timelineData[year];
+            const point = event.currentTarget;
+            
+            // Créer la carte de description
+            const descCard = document.createElement('div');
+            descCard.className = 'description-card';
+            descCard.innerHTML = `
+                <h3>${data.title} (${year})</h3>
+                <p>${data.description}</p>
+            `;
+            
+            // Positionner la carte
+            const rect = point.getBoundingClientRect();
+            const isLeft = parseInt(point.style.left) < 50;
+            
+            descCard.style.top = `${rect.top + window.scrollY}px`;
+            descCard.style.left = isLeft 
+                ? `${rect.right + 15}px` 
+                : `${rect.left - 315}px`;
+            
+            // Ajouter au document
+            document.body.appendChild(descCard);
+            
+            // Animation
+            setTimeout(() => {
+                descCard.style.opacity = '1';
+                descCard.style.visibility = 'visible';
+            }, 10);
+        }
+
+        function hideDescription(year) {
+            const descCard = document.querySelector('.description-card');
+            if (descCard) {
+                descCard.style.opacity = '0';
+                descCard.style.visibility = 'hidden';
+                setTimeout(() => {
+                    descCard.remove();
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

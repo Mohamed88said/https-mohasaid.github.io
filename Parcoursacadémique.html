@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours Académique - Mohamed Saïd Diallo</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 150px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mode Sombre */
+        body.dark-mode {
+            background-color: #121212;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .container {
+            background: #222;
+            color: var(--text-light);
+        }
+
+        body.dark-mode footer {
+            background: #111;
+        }
+
+        /* Bouton Mode Sombre */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--secondary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .dark-mode-toggle i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Conteneurs */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-mode .container {
+            background: #222;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Parcours Académique */
+        .parcours-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .parcours-item {
+            display: flex;
+            gap: 30px;
+            padding-bottom: 30px;
+            border-left: 3px solid var(--secondary);
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .parcours-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .parcours-year {
+            min-width: 100px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 5px;
+        }
+
+        .parcours-content {
+            flex: 1;
+        }
+
+        .parcours-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--secondary);
+            left: -9px;
+            top: 5px;
+        }
+
+        .parcours-diplome {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        body.dark-mode .parcours-diplome {
+            color: var(--text-light);
+        }
+
+        .parcours-ecole {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        body.dark-mode .parcours-ecole {
+            color: #ccc;
+        }
+
+        .parcours-description {
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .parcours-item {
+                flex-direction: column;
+                gap: 10px;
+                padding-left: 20px;
+            }
+            
+            .parcours-year {
+                margin-bottom: 5px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header>
+        <h1>Mohamed Saïd Diallo</h1>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="Parcoursacadémique.html">Parcours Académique</a>
+            <a href="expérience.html">Expériences</a>
+            <a href="certification.html">Certifications</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="container">
+        <h2>Parcours Académique</h2>
+        
+        <div class="parcours-container">
+            <!-- Ordre chronologique inverse (du plus récent au plus ancien) -->
+            
+            <!-- 2024 -->
+            <div class="parcours-item">
+                <div class="parcours-year">2024 - Présent</div>
+                <div class="parcours-content">
+                    <h3 class="parcours-diplome">Licence en Economie APE</h3>
+                    <div class="parcours-ecole">Université Droit, Economie et gestion - Pasteur, Rouen</div>
+                    <div class="parcours-description">
+                        <p>Spécialisation en analyse et politique economique. Finance de marché, macroeconmie microeconomie gestion d'actif et de portefeuille.</p>
+                        <p>Modules principaux :Macroeconomie et finance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2021-2023 -->
+            <div class="parcours-item">
+                <div class="parcours-year">2021 - 2023</div>
+                <div class="parcours-content">
+                    <h3 class="parcours-diplome">Licence en Management-Finance comptabilité</h3>
+                    <div class="parcours-ecole">Université ISCAE, Conakry</div>
+                    <div class="parcours-description">
+                        <p>Obtention avec mention Très Bien. stage à l'appui</p>
+                        <p>Spécialisation en comptabiité, gestion d'entreprise, audit.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2020 -->
+            <div class="parcours-item">
+                <div class="parcours-year">2020</div>
+                <div class="parcours-content">
+                    <h3 class="parcours-diplome">Baccalauréat Scientifique</h3>
+                    <div class="parcours-ecole">Lycée Saint Georges, Conakry</div>
+                    <div class="parcours-description">
+                        <p>Mention Assez Bien</p>
+                        <p>Spécialités : Mathématiques et Sciences Physiques.</p>
+                        <p>Option : Sciences Mathématiques</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Mode sombre
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // Vérifier le mode sombre au chargement
+        document.addEventListener("DOMContentLoaded", function() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('.dark-mode-toggle i');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
+</body>
+</html>
