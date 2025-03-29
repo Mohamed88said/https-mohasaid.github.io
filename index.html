@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Saïd Diallo</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Mohamed Saïd Diallo | Économie APE & Management</title>
+    <meta name="description" content="Étudiant en Licence 3 APE à l'Université de Rouen | Spécialisé en Management, Comptabilité et Audit">
+    <meta property="og:image" content="https://i.ibb.co/Mxtn0PcZ/image.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --primary: #2c3e50;
@@ -16,6 +17,7 @@
             --dark: #2c3e50;
             --text-light: #ffffff;
             --text-dark: #333333;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -30,7 +32,41 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-bottom: 150px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Mode Sombre */
@@ -77,7 +113,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .dark-mode-toggle:hover {
@@ -89,6 +125,32 @@
             font-size: 1.2rem;
         }
 
+        /* Bouton Langue */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .language-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
+        }
+
         /* Header */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
@@ -96,6 +158,23 @@
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ecf0f1" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23ecf0f1" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ecf0f1"/></svg>');
+            background-size: cover;
+        }
+
+        body.dark-mode header::after {
+            display: none;
         }
 
         h1, h2, h3 {
@@ -106,6 +185,19 @@
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
         }
 
         /* Navigation */
@@ -115,6 +207,8 @@
             background: rgba(0,0,0,0.1);
             padding: 15px;
             backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
         }
 
         nav a {
@@ -123,13 +217,29 @@
             padding: 10px 20px;
             margin: 0 10px;
             border-radius: 30px;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-weight: 600;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
         }
 
         nav a:hover {
-            background: rgba(255,255,255,0.2);
             transform: translateY(-2px);
+        }
+
+        nav a:hover::after {
+            width: 60%;
         }
 
         /* Section Hero */
@@ -140,11 +250,13 @@
             align-items: center;
             gap: 40px;
             padding: 30px;
+            position: relative;
         }
 
         .photo-wrapper {
             display: inline-block;
             padding: 10px;
+            position: relative;
         }
         
         .photo-container {
@@ -155,7 +267,19 @@
             position: relative;
             background: linear-gradient(45deg, #f5f7fa 0%, #e4e8eb 100%);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .photo-container::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
         }
         
         .photo-image {
@@ -167,7 +291,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             filter: grayscale(20%);
-            transition: all 0.5s ease;
+            transition: var(--transition);
         }
 
         .hero-text {
@@ -189,12 +313,29 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.5s ease;
         }
 
         .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .container:hover::before {
+            height: 100%;
         }
 
         /* Compétences */
@@ -202,11 +343,16 @@
             margin-bottom: 15px;
         }
 
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
         .skill-bar {
             height: 8px;
             background: #eee;
             border-radius: 4px;
-            margin-top: 5px;
             overflow: hidden;
         }
 
@@ -216,6 +362,23 @@
             border-radius: 4px;
             width: 0;
             transition: width 1s ease-in-out;
+            position: relative;
+        }
+
+        .skill-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* Timeline */
@@ -252,7 +415,7 @@
             border-radius: 50%;
             border: 3px solid var(--secondary);
             text-align: center;
-            transition: all 0.3s;
+            transition: var(--transition);
             z-index: 2;
             width: 70px;
             height: 70px;
@@ -284,17 +447,24 @@
             background: white;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             border-left: 4px solid var(--secondary);
             transition: all 0.3s ease;
             opacity: 0;
             visibility: hidden;
             z-index: 10;
+            transform: translateY(20px);
         }
 
         .description-card h3 {
             color: var(--secondary);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .description-card h3 i {
+            margin-right: 10px;
         }
 
         /* Boutons */
@@ -311,16 +481,51 @@
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: var(--transition);
             margin: 10px;
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .cta-button:hover::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
         }
 
         .secondary {
@@ -344,6 +549,33 @@
             bottom: 0;
             width: 100%;
             z-index: 10;
+        }
+        
+        .social-links {
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Confettis */
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
         }
 
         /* Responsive */
@@ -384,13 +616,32 @@
                 left: 50% !important;
                 transform: translateX(-50%) !important;
             }
+            
+            .language-switcher {
+                top: 70px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Confettis Canvas -->
+    <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+
+    <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
         <i class="fas fa-moon"></i>
     </button>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
+        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+    </div>
 
     <header>
         <h1>Mohamed Saïd Diallo</h1>
@@ -410,56 +661,78 @@
                  onmouseover="animatePhoto('in')" 
                  onmouseout="animatePhoto('out')">
               <img src="https://i.ibb.co/Mxtn0PcZ/image.png" 
-                   alt="Photo professionnelle" 
+                   alt="Mohamed Saïd Diallo - Photo professionnelle" 
                    class="photo-image">
             </div>
         </div>
         <div class="hero-text">
-            <h2>À propos de moi</h2>
-            <p class="tagline">Étudiant en Economie APE | Management</p>
-            <p>Le succès est la somme de petits efforts répétés jour après jour.</p>
+            <h2 data-i18n="about">À propos de moi</h2>
+            <p class="tagline" data-i18n="tagline">Étudiant en Economie APE | Management</p>
+            <p data-i18n="quote">Le succès est la somme de petits efforts répétés jour après jour.</p>
             
             <div class="cta-container">
-                <a href="contact.html" class="cta-button">Contactez-moi</a>
-                <a href="https://drive.google.com/file/d/1akRujVxCqZ_S1X3PFFgeR7CHPpxRDsCv/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cta-button secondary">Télécharger mon CV</a>
+                <a href="contact.html" class="cta-button" data-i18n="contact">Contactez-moi</a>
+                <a href="https://drive.google.com/file/d/1akRujVxCqZ_S1X3PFFgeR7CHPpxRDsCv/view?usp=sharing" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="cta-button secondary download-cv" 
+                   data-i18n="downloadCV">Télécharger mon CV</a>
             </div>
         </div>
     </section>
 
     <section class="container">
-        <h2>Compétences</h2>
+        <h2 data-i18n="skills">Compétences</h2>
         <div class="skill">
-            <span>Management /Gestion de projet</span>
+            <div class="skill-name">
+                <span data-i18n="skill1">Management /Gestion de projet</span>
+                <span>85%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 85%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Comptabilité</span>
+            <div class="skill-name">
+                <span data-i18n="skill2">Comptabilité</span>
+                <span>65%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 65%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Audit/Contrôle</span>
+            <div class="skill-name">
+                <span data-i18n="skill3">Audit/Contrôle</span>
+                <span>70%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 70%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Prospection client</span>
+            <div class="skill-name">
+                <span data-i18n="skill4">Prospection client</span>
+                <span>80%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 80%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Outils financiers</span>
+            <div class="skill-name">
+                <span data-i18n="skill5">Outils financiers</span>
+                <span>70%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 70%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Sage Office /Html CSS PhotoShop /Canva</span>
+            <div class="skill-name">
+                <span data-i18n="skill6">Sage Office /Html CSS PhotoShop /Canva</span>
+                <span>60%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 60%"></div>
             </div>
@@ -467,21 +740,30 @@
     </section>
 
     <section class="container">
-        <h2>Langues</h2>
+        <h2 data-i18n="languages">Langues</h2>
         <div class="skill">
-            <span>Français (Langue maternelle)</span>
+            <div class="skill-name">
+                <span data-i18n="language1">Français (Langue maternelle)</span>
+                <span>100%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 100%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Anglais (Intermédiaire)</span>
+            <div class="skill-name">
+                <span data-i18n="language2">Anglais (Intermédiaire)</span>
+                <span>65%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 65%"></div>
             </div>
         </div>
         <div class="skill">
-            <span>Pular hahaha</span>
+            <div class="skill-name">
+                <span data-i18n="language3">Pular</span>
+                <span>30%</span>
+            </div>
             <div class="skill-bar">
                 <div class="skill-level" style="width: 30%"></div>
             </div>
@@ -489,7 +771,7 @@
     </section>
 
     <section class="container">
-        <h2>Mon Parcours</h2>
+        <h2 data-i18n="journey">Mon Parcours</h2>
         <div class="timeline">
             <!-- Ordre inversé (2024 en premier) -->
             <div class="timeline-point" 
@@ -511,35 +793,23 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Mohamed Saïd Diallo - Tous droits réservés.</p>
+        <p>&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span>.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
     </footer>
 
     <script>
-        // Animation des barres de compétences
-        document.addEventListener("DOMContentLoaded", function() {
-            const skillBars = document.querySelectorAll('.skill-level');
-            skillBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 100);
-            });
-            
-            // Vérifier le mode sombre au chargement
-            checkDarkMode();
+        // ============ LOADER ============
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
         });
 
-        // Fonction pour vérifier l'état du mode sombre
-        function checkDarkMode() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                const icon = document.querySelector('.dark-mode-toggle i');
-                icon.classList.replace('fa-moon', 'fa-sun');
-            }
-        }
-
-        // Mode sombre
+        // ============ DARK MODE ============
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const icon = document.querySelector('.dark-mode-toggle i');
@@ -553,7 +823,96 @@
             }
         }
 
-        // Animation photo
+        // Vérifier le mode sombre au chargement
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // ============ LANGUE ============
+        const translations = {
+            'fr': {
+                'about': 'À propos de moi',
+                'tagline': 'Étudiant en Economie APE | Management',
+                'quote': 'Le succès est la somme de petits efforts répétés jour après jour.',
+                'contact': 'Contactez-moi',
+                'downloadCV': 'Télécharger mon CV',
+                'skills': 'Compétences',
+                'skill1': 'Management /Gestion de projet',
+                'skill2': 'Comptabilité',
+                'skill3': 'Audit/Contrôle',
+                'skill4': 'Prospection client',
+                'skill5': 'Outils financiers',
+                'skill6': 'Sage Office /Html CSS PhotoShop /Canva',
+                'languages': 'Langues',
+                'language1': 'Français (Langue maternelle)',
+                'language2': 'Anglais (Intermédiaire)',
+                'language3': 'Pular',
+                'journey': 'Mon Parcours',
+                'rights': 'Tous droits réservés'
+            },
+            'en': {
+                'about': 'About Me',
+                'tagline': 'APE Economics Student | Management',
+                'quote': 'Success is the sum of small efforts repeated day in and day out.',
+                'contact': 'Contact Me',
+                'downloadCV': 'Download my CV',
+                'skills': 'Skills',
+                'skill1': 'Management / Project Management',
+                'skill2': 'Accounting',
+                'skill3': 'Audit/Control',
+                'skill4': 'Customer prospecting',
+                'skill5': 'Financial tools',
+                'skill6': 'Sage Office / Html CSS PhotoShop / Canva',
+                'languages': 'Languages',
+                'language1': 'French (Native)',
+                'language2': 'English (Intermediate)',
+                'language3': 'Pular',
+                'journey': 'My Journey',
+                'rights': 'All rights reserved'
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Mettre à jour les boutons de langue
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang.toUpperCase()) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Traduire le contenu
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                element.textContent = translations[lang][key] || element.textContent;
+            });
+
+            // Mettre à jour l'attribut lang de l'HTML
+            document.documentElement.lang = lang;
+            
+            // Sauvegarder la langue dans localStorage
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Synchroniser avec les autres pages
+            if (window.syncLanguage) {
+                window.syncLanguage(lang);
+            }
+        }
+
+        // Vérifier la langue au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+            changeLanguage(savedLang);
+            
+            // Fonction pour synchroniser la langue entre les pages
+            window.syncLanguage = function(lang) {
+                changeLanguage(lang);
+            };
+        });
+
+        // ============ ANIMATION PHOTO ============
         function animatePhoto(direction) {
             const container = document.querySelector('.photo-container');
             const image = document.querySelector('.photo-image');
@@ -562,18 +921,18 @@
                 container.style.transform = 'scale(1.05)';
                 container.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
                 image.style.filter = 'grayscale(0%) brightness(1.05)';
-                image.style.width = '95%';
-                image.style.height = '95%';
+                container.style.border = '3px solid var(--secondary)';
+                container.style.padding = '5px';
             } else {
                 container.style.transform = 'scale(1)';
                 container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
                 image.style.filter = 'grayscale(20%)';
-                image.style.width = '90%';
-                image.style.height = '90%';
+                container.style.border = 'none';
+                container.style.padding = '0';
             }
         }
 
-        // Dictionnaire des descriptions par année (ordre inversé)
+        // ============ TIMELINE ============
         const timelineData = {
             '2024-2025': {
                 title: "Licence APE",
@@ -597,24 +956,20 @@
             }
         };
 
-        // Fonction pour afficher les descriptions
         function showDescription(event, year) {
-            // Supprimer toute description existante
             const existingDesc = document.querySelector('.description-card');
             if (existingDesc) existingDesc.remove();
             
             const data = timelineData[year];
             const point = event.currentTarget;
             
-            // Créer la carte de description
             const descCard = document.createElement('div');
             descCard.className = 'description-card';
             descCard.innerHTML = `
-                <h3>${data.title} (${year})</h3>
+                <h3><i class="fas fa-calendar-alt"></i> ${data.title} (${year})</h3>
                 <p>${data.description}</p>
             `;
             
-            // Positionner la carte
             const rect = point.getBoundingClientRect();
             const isLeft = parseInt(point.style.left) < 50;
             
@@ -623,13 +978,12 @@
                 ? `${rect.right + 15}px` 
                 : `${rect.left - 315}px`;
             
-            // Ajouter au document
             document.body.appendChild(descCard);
             
-            // Animation
             setTimeout(() => {
                 descCard.style.opacity = '1';
                 descCard.style.visibility = 'visible';
+                descCard.style.transform = 'translateY(0)';
             }, 10);
         }
 
@@ -638,11 +992,96 @@
             if (descCard) {
                 descCard.style.opacity = '0';
                 descCard.style.visibility = 'hidden';
+                descCard.style.transform = 'translateY(20px)';
                 setTimeout(() => {
                     descCard.remove();
                 }, 300);
             }
         }
+
+        // ============ CONFETTIS ============
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confetti = canvas.getContext('2d');
+            const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * canvas.width;
+                    const y = -20;
+                    const size = Math.random() * 10 + 5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 3 + 2;
+                    
+                    animateConfetti(x, y, size, color, angle, velocity);
+                }, i * 20);
+            }
+            
+            function animateConfetti(x, y, size, color, angle, velocity) {
+                let currentY = y;
+                let rotation = 0;
+                const spinSpeed = Math.random() * 0.2 - 0.1;
+                
+                function draw() {
+                    confetti.save();
+                    confetti.translate(x, currentY);
+                    confetti.rotate(rotation);
+                    confetti.fillStyle = color;
+                    confetti.fillRect(-size/2, -size/2, size, size);
+                    confetti.restore();
+                }
+                
+                function update() {
+                    currentY += velocity;
+                    rotation += spinSpeed;
+                    x += Math.sin(angle) * 1;
+                    
+                    if (currentY < canvas.height) {
+                        requestAnimationFrame(frame);
+                    }
+                }
+                
+                function frame() {
+                    confetti.clearRect(0, 0, canvas.width, canvas.height);
+                    draw();
+                    update();
+                }
+                
+                frame();
+            }
+        }
+
+        // ============ CV DOWNLOAD ============
+        document.querySelector('.download-cv').addEventListener('click', function() {
+            triggerConfetti();
+            
+            // Envoyer un événement à Google Analytics (exemple)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'download', {
+                    'event_category': 'CV',
+                    'event_label': 'CV_Download'
+                });
+            }
+        });
+
+        // ============ ANNÉE COURANTE ============
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ============ ANIMATION DES BARRES DE COMPÉTENCES ============
+        document.addEventListener("DOMContentLoaded", function() {
+            const skillBars = document.querySelectorAll('.skill-level');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
     </script>
 </body>
 </html>
