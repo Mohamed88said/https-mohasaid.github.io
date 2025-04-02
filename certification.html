@@ -6,7 +6,6 @@
     <title data-i18n="certifications_title">Certifications - Mohamed Saïd Diallo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -15,7 +14,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     <link rel="manifest" href="site.webmanifest">
-    
     <style>
         :root {
             --primary: #1a0033;
@@ -39,23 +37,67 @@
             background-color: var(--light);
             color: var(--text-dark);
             line-height: 1.6;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             transition: var(--transition);
         }
 
-        /* Mode Sombre */
+        /* RTL Support for Arabic */
+        body[dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[dir="rtl"] .section-title::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        body[dir="rtl"] .modal-details strong {
+            margin-left: 10px;
+            margin-right: 0;
+        }
+
+        /* Dark Mode */
         body.dark-mode {
             background-color: var(--dark);
             color: var(--text-light);
         }
 
+        body.dark-mode .container,
         body.dark-mode .certification-card {
             background: #222;
             border-left-color: #444;
         }
 
+        body.dark-mode .certification-title {
+            color: var(--text-light);
+        }
+
+        body.dark-mode .certification-date,
+        body.dark-mode .close-modal {
+            color: #aaa;
+        }
+
+        body.dark-mode .modal-header {
+            border-color: #444;
+        }
+
+        body.dark-mode .modal-content {
+            background: #222;
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
         body.dark-mode .modal-skill {
             background: #333;
+        }
+
+        body.dark-mode .certification-btn:hover {
+            color: var(--text-light);
+            border-color: var(--text-light);
         }
 
         /* Header animé */
@@ -142,14 +184,56 @@
             left: 100%;
         }
 
+        nav a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
         /* Conteneurs */
         .container {
             max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        /* Cartes de certification */
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #666;
+        }
+
+        body.dark-mode .section-intro {
+            color: #aaa;
+        }
+
+        /* Certifications Grid */
         .certifications-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -160,35 +244,16 @@
         .certification-card {
             background: white;
             border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: var(--transition);
             border-left: 4px solid var(--accent);
             position: relative;
-            overflow: hidden;
-        }
-
-        .certification-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,77,77,0.1), rgba(77,121,255,0.1));
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 0;
         }
 
         .certification-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .certification-card:hover::after {
-            opacity: 1;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
         .certification-image {
@@ -222,7 +287,7 @@
         }
 
         .certification-badge.in-progress {
-            background: var(--accent);
+            background: #4d79ff;
         }
 
         .certification-content {
@@ -239,10 +304,15 @@
         }
 
         .certification-org {
-            font-style: italic;
-            color: var(--accent);
+            font-weight: bold;
             margin-bottom: 10px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .certification-org i {
+            margin-right: 8px;
+            color: var(--accent);
         }
 
         .certification-date {
@@ -277,10 +347,6 @@
             color: var(--accent);
         }
 
-        body.dark-mode .certification-btn:hover {
-            color: var(--text-light);
-        }
-
         /* Modal */
         .modal {
             display: none;
@@ -302,15 +368,12 @@
             max-width: 800px;
             width: 90%;
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             max-height: 90vh;
             display: flex;
             flex-direction: column;
-        }
-
-        body.dark-mode .modal-content {
-            background: #222;
+            border-left: 4px solid var(--accent);
         }
 
         .modal-header {
@@ -319,10 +382,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        body.dark-mode .modal-header {
-            border-color: #444;
         }
 
         .modal-body {
@@ -345,10 +404,6 @@
             cursor: pointer;
             color: #666;
             transition: var(--transition);
-        }
-
-        body.dark-mode .close-modal {
-            color: #aaa;
         }
 
         .close-modal:hover {
@@ -379,14 +434,22 @@
 
         .modal-skill {
             background: var(--light);
+            color: var(--accent);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
+            font-weight: 600;
             border: 1px solid var(--accent);
-            color: var(--accent);
+            transition: var(--transition);
         }
 
-        /* Footer comme sur la page d'accueil */
+        .modal-skill:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer comme sur la page d'expérience */
         footer {
             padding: 15px 20px;
             height: auto;
@@ -517,6 +580,7 @@
             
             nav {
                 flex-wrap: wrap;
+                padding: 10px;
             }
             
             nav a {
@@ -575,18 +639,18 @@
     <header>
         <div class="animated-bg"></div>
         <div class="header-content">
-            <h1 data-i18n="certifications_header">Mes Certifications</h1>
+            <h1 data-i18n="header_name">Mohamed Saïd Diallo</h1>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Accueil</a>
-                <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
+                <a href="Parcoursacadémique.html" data-i18n="nav_education">Parcours Académique</a>
                 <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
-                <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
+                <a href="certification.html" class="active" data-i18n="nav_certifications">Certifications</a>
                 <a href="contact.html" data-i18n="nav_contact">Contact</a>
             </nav>
         </div>
     </header>
 
-    <main class="container">
+    <section class="container">
         <h2 class="section-title" data-i18n="certifications_header">Mes Certifications</h2>
         <p class="section-intro" data-i18n="certifications_intro">Découvrez les certifications que j'ai obtenues tout au long de mon parcours professionnel et académique.</p>
         
@@ -599,7 +663,7 @@
                 </div>
                 <div class="certification-content">
                     <h3 class="certification-title" data-i18n="cert1_title">Analyse Financière Avancée</h3>
-                    <div class="certification-org" data-i18n="cert1_org">Institut des Finances Internationales</div>
+                    <div class="certification-org"><i class="fas fa-building"></i> <span data-i18n="cert1_org">Institut des Finances Internationales</span></div>
                     <div class="certification-date"><i class="fas fa-calendar-alt"></i> <span data-i18n="cert1_date">Mars 2023</span></div>
                     <a href="#" class="certification-btn" onclick="openModal('certif1')" data-i18n="btn_details">Voir détails</a>
                 </div>
@@ -613,7 +677,7 @@
                 </div>
                 <div class="certification-content">
                     <h3 class="certification-title" data-i18n="cert2_title">Gestion des Risques Bancaires</h3>
-                    <div class="certification-org" data-i18n="cert2_org">École Européenne de Finance</div>
+                    <div class="certification-org"><i class="fas fa-building"></i> <span data-i18n="cert2_org">École Européenne de Finance</span></div>
                     <div class="certification-date"><i class="fas fa-calendar-alt"></i> <span data-i18n="cert2_date">Novembre 2022</span></div>
                     <a href="#" class="certification-btn" onclick="openModal('certif2')" data-i18n="btn_details">Voir détails</a>
                 </div>
@@ -627,15 +691,15 @@
                 </div>
                 <div class="certification-content">
                     <h3 class="certification-title" data-i18n="cert3_title">Data Science pour la Finance</h3>
-                    <div class="certification-org" data-i18n="cert3_org">Institut Digital Finance</div>
+                    <div class="certification-org"><i class="fas fa-building"></i> <span data-i18n="cert3_org">Institut Digital Finance</span></div>
                     <div class="certification-date"><i class="fas fa-calendar-alt"></i> <span data-i18n="cert3_date">En cours - Fin prévue Décembre 2023</span></div>
                     <a href="#" class="certification-btn" onclick="openModal('certif3')" data-i18n="btn_details">Voir détails</a>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Modal pour les détails des certifications -->
+    <!-- Modal -->
     <div id="certification-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -935,7 +999,7 @@
             'fr': {
                 // Navigation
                 'nav_home': 'Accueil',
-                'nav_academic': 'Parcours Académique',
+                'nav_education': 'Parcours Académique',
                 'nav_experience': 'Expériences',
                 'nav_certifications': 'Certifications',
                 'nav_contact': 'Contact',
@@ -966,7 +1030,7 @@
             'en': {
                 // Navigation
                 'nav_home': 'Home',
-                'nav_academic': 'Academic Background',
+                'nav_education': 'Academic Background',
                 'nav_experience': 'Experiences',
                 'nav_certifications': 'Certifications',
                 'nav_contact': 'Contact',
@@ -997,7 +1061,7 @@
             'es': {
                 // Navigation
                 'nav_home': 'Inicio',
-                'nav_academic': 'Formación Académica',
+                'nav_education': 'Formación Académica',
                 'nav_experience': 'Experiencias',
                 'nav_certifications': 'Certificaciones',
                 'nav_contact': 'Contacto',
@@ -1028,7 +1092,7 @@
             'pt': {
                 // Navigation
                 'nav_home': 'Início',
-                'nav_academic': 'Formação Acadêmica',
+                'nav_education': 'Formação Acadêmica',
                 'nav_experience': 'Experiências',
                 'nav_certifications': 'Certificações',
                 'nav_contact': 'Contato',
@@ -1059,7 +1123,7 @@
             'ar': {
                 // Navigation
                 'nav_home': 'الرئيسية',
-                'nav_academic': 'المسار الأكاديمي',
+                'nav_education': 'المسار الأكاديمي',
                 'nav_experience': 'الخبرات',
                 'nav_certifications': 'الشهادات',
                 'nav_contact': 'اتصل',
@@ -1090,7 +1154,7 @@
             'de': {
                 // Navigation
                 'nav_home': 'Startseite',
-                'nav_academic': 'Akademischer Werdegang',
+                'nav_education': 'Akademischer Werdegang',
                 'nav_experience': 'Erfahrungen',
                 'nav_certifications': 'Zertifizierungen',
                 'nav_contact': 'Kontakt',
@@ -1117,24 +1181,53 @@
                 
                 // Footer
                 'rights': 'Alle Rechte vorbehalten'
+            },
+            'it': {
+                // Navigation
+                'nav_home': 'Home',
+                'nav_education': 'Percorso Accademico',
+                'nav_experience': 'Esperienze',
+                'nav_certifications': 'Certificazioni',
+                'nav_contact': 'Contatto',
+                
+                // Titres
+                'certifications_title': 'Certificazioni - Mohamed Saïd Diallo',
+                'certifications_header': 'Le Mie Certificazioni',
+                'certifications_intro': 'Scopri le certificazioni che ho ottenuto durante il mio percorso professionale e accademico.',
+                'header_name': 'Mohamed Saïd Diallo',
+                
+                // Badges
+                'badge_validated': 'Convalidato',
+                'badge_in_progress': 'In corso',
+                
+                // Boutons
+                'btn_details': 'Vedi dettagli',
+                'btn_view_certif': 'Vedi certificazione',
+                
+                // Modal
+                'modal_org': 'Organizzazione :',
+                'modal_date': 'Data di ottenimento :',
+                'modal_skills': 'Competenze validate :',
+                'modal_description': 'Descrizione :',
+                
+                // Footer
+                'rights': 'Tutti i diritti riservati'
             }
         };
 
         // ============ FONCTIONS ============
-        // Ouvrir le modal avec les détails de la certification
+        // Ouvrir le modal
         function openModal(certifId) {
-            const lang = localStorage.getItem('preferredLanguage') || 'fr';
+            const lang = localStorage.getItem('language') || 'fr';
             const certif = certificationsData[certifId];
             const modal = document.getElementById('certification-modal');
             
-            // Mettre à jour le contenu du modal avec les données de la certification
             document.getElementById('modal-title').textContent = certif.title[lang];
             document.getElementById('modal-image').src = certif.image;
             document.getElementById('modal-image').alt = certif.title[lang];
             document.getElementById('modal-org').textContent = certif.org[lang];
             document.getElementById('modal-date').textContent = certif.date[lang];
             
-            // Mettre à jour les compétences
             const skillsList = document.getElementById('modal-skills');
             skillsList.innerHTML = '';
             certif.skills[lang].forEach(skill => {
@@ -1144,11 +1237,9 @@
                 skillsList.appendChild(skillElement);
             });
             
-            // Mettre à jour la description et le lien
             document.getElementById('modal-description').textContent = certif.description[lang];
             document.getElementById('modal-link').href = certif.link;
             
-            // Afficher le modal
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -1170,11 +1261,10 @@
                 icon.classList.toggle('fa-sun', isDarkMode);
             }
             
-            // Synchroniser avec les autres pages
+            // Déclencher un événement personnalisé pour synchroniser les autres pages
             window.dispatchEvent(new Event('storage'));
         }
 
-        // Changer la langue
         function changeLanguage(lang) {
             if (!translations[lang]) lang = 'fr';
             
@@ -1196,10 +1286,10 @@
             
             // Mettre à jour le titre
             if (translations[lang]['certifications_title']) {
-                document.title = translations[lang]['certifications_title'] + ' - Mohamed Saïd Diallo';
+                document.title = translations[lang]['certifications_title'];
             }
             
-            // Synchroniser avec les autres pages
+            // Déclencher un événement pour synchroniser les autres pages
             window.dispatchEvent(new Event('storage'));
         }
 
@@ -1239,14 +1329,6 @@
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', applyPreferences);
-
-        // Fermer le modal en cliquant à l'extérieur
-        window.onclick = function(event) {
-            const modal = document.getElementById('certification-modal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
 
         // Exposer les fonctions globalement
         window.toggleDarkMode = toggleDarkMode;
