@@ -6,20 +6,17 @@
     <title data-i18n="contact_title">Contact - Mohamed Saïd Diallo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Favicon Standard -->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-
-<!-- Pour Apple/Safari -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-<!-- Android -->
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-
-<!-- Web Manifest -->
-<link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    
     <style>
         :root {
             --primary: #2c3e50;
@@ -29,7 +26,7 @@
             --dark: #2c3e50;
             --text-light: #ffffff;
             --text-dark: #333333;
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -42,9 +39,42 @@
             font-family: 'Open Sans', sans-serif;
             background-color: var(--light);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.8;
             padding-bottom: 100px;
             transition: var(--transition);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Mode Sombre */
@@ -53,7 +83,7 @@
             color: var(--text-light);
         }
 
-        body.dark-mode .contact-container,
+        body.dark-mode .container,
         body.dark-mode .contact-info,
         body.dark-mode form {
             background: #222;
@@ -71,77 +101,57 @@
             border-color: #444;
         }
 
-        /* Bouton Mode Sombre */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: var(--secondary);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .dark-mode-toggle i {
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Bouton Langue */
-        .language-switcher {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 5px;
-        }
-        
-        .language-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-        }
-        
-        .language-btn.active {
-            background: var(--secondary);
-        }
-
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #e74c3c 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
             color: white;
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
+        @keyframes gradientBG {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         header h1 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        /* Basmalah */
+        .basmala {
+            font-size: 2.8rem;
+            line-height: 1;
+            margin: 0 0 15px 0;
+            font-family: 'Amiri', 'Traditional Arabic', Arial, sans-serif;
+            direction: rtl;
+            display: block;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         /* Navigation */
@@ -161,25 +171,68 @@
             border-radius: 30px;
             transition: var(--transition);
             font-weight: 600;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Contenu principal */
-        .contact-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
             position: relative;
         }
 
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::after {
+            width: 60%;
+        }
+
+        /* Conteneurs */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.5s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .container:hover::before {
+            height: 100%;
+        }
+
+        /* Grille de contact */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
+            margin-top: 30px;
         }
 
         @media (max-width: 768px) {
@@ -188,11 +241,9 @@
             }
         }
 
+        /* Informations de contact */
         .contact-info {
-            background: white;
-            border-radius: 8px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .contact-info h2 {
@@ -208,7 +259,7 @@
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .contact-item i {
@@ -222,6 +273,11 @@
             justify-content: center;
             margin-right: 15px;
             flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover i {
+            transform: rotate(15deg) scale(1.1);
         }
 
         .contact-item a {
@@ -232,14 +288,12 @@
 
         .contact-item a:hover {
             text-decoration: underline;
+            color: var(--accent);
         }
 
         /* Formulaire */
         form {
-            background: white;
-            border-radius: 8px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         form h2 {
@@ -275,7 +329,7 @@
 
         textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 150px;
         }
 
         button[type="submit"] {
@@ -289,6 +343,7 @@
             cursor: pointer;
             transition: var(--transition);
             position: relative;
+            overflow: hidden;
         }
 
         button[type="submit"]:hover {
@@ -302,7 +357,7 @@
             cursor: not-allowed;
         }
 
-        .loader {
+        .form-loader {
             display: none;
             width: 20px;
             height: 20px;
@@ -314,11 +369,7 @@
             right: 20px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Messages de confirmation/erreur */
+        /* Messages de statut */
         .form-message {
             padding: 15px;
             margin: 20px 0;
@@ -350,10 +401,75 @@
             border-color: #f5c6cb;
         }
 
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--secondary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .dark-mode-toggle i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .language-select {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 30px;
+            font-size: 0.9rem;
+        }
+
+        .language-select:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .language-select option {
+            background: var(--primary);
+            color: white;
+        }
+
         /* Footer */
         footer {
-            text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: var(--primary);
             color: white;
             position: fixed;
@@ -361,20 +477,48 @@
             width: 100%;
             z-index: 10;
         }
-        
-        .social-links {
-            margin-top: 10px;
+
+        .footer-left {
+            flex: 1;
+            text-align: left;
         }
-        
+
+        .footer-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
         .social-links a {
             color: white;
-            margin: 0 10px;
-            font-size: 1.2rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
             transition: var(--transition);
         }
         
         .social-links a:hover {
-            color: var(--secondary);
+            background: var(--secondary);
             transform: translateY(-3px);
         }
 
@@ -459,6 +603,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
             nav {
                 flex-wrap: wrap;
             }
@@ -480,33 +628,67 @@
             .language-switcher {
                 top: 70px;
             }
+            
+            footer {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .footer-left, .footer-center, .footer-right {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .social-links {
+                gap: 12px;
+            }
+            
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .copyright {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
     <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Language Switcher -->
+    <!-- Menu déroulant Langue -->
     <div class="language-switcher">
-        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
-        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+        <select class="language-select" onchange="changeLanguage(this.value)">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+        </select>
     </div>
 
     <header>
+        <div class="basmala">﷽</div>
         <h1 data-i18n="contact_header">Me Contacter</h1>
         <nav>
             <a href="index.html" data-i18n="nav_home">Accueil</a>
-            <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
+            <a href="Parcoursacadémique.html" data-i18n="nav_education">Parcours Académique</a>
             <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
             <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
             <a href="contact.html" data-i18n="nav_contact">Contact</a>
         </nav>
     </header>
 
-    <section class="contact-container">
+    <section class="container">
         <div class="contact-grid">
             <div class="contact-info">
                 <h2 data-i18n="contact_info_title">Mes Coordonnées</h2>
@@ -530,6 +712,13 @@
                         <div>
                             <strong data-i18n="contact_address">Adresse :</strong><br>
                             <span data-i18n="contact_city">Rouen, France</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <strong>LinkedIn :</strong><br>
+                            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank">Mohamed Saïdou Diallo</a>
                         </div>
                     </div>
                 </div>
@@ -564,7 +753,7 @@
                 </div>
                 <button type="submit" id="submitBtn">
                     <span data-i18n="form_submit">Envoyer le message</span>
-                    <span class="loader" id="formLoader"></span>
+                    <span class="form-loader" id="formLoader"></span>
                 </button>
             </form>
         </div>
@@ -582,131 +771,30 @@
     </div>
 
     <footer>
-        <p>&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span>.</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <div class="footer-left">
+            <p class="copyright">&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span></p>
+        </div>
+        <div class="footer-center">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-right">
+            <!-- Espace pour éventuel contenu supplémentaire -->
         </div>
     </footer>
 
     <script>
-        // ============ TRADUCTIONS ============
-        const translations = {
-            'fr': {
-                // Navigation
-                'nav_home': 'Accueil',
-                'nav_academic': 'Parcours Académique',
-                'nav_experience': 'Expériences',
-                'nav_certifications': 'Certifications',
-                'nav_contact': 'Contact',
-                
-                // Titres
-                'contact_title': 'Contact - Mohamed Saïd Diallo',
-                'contact_header': 'Me Contacter',
-                'contact_info_title': 'Mes Coordonnées',
-                'contact_form_title': 'Formulaire de Contact',
-                
-                // Contact info
-                'contact_email': 'Email :',
-                'contact_phone': 'Téléphone :',
-                'contact_address': 'Adresse :',
-                'contact_city': 'Rouen, France',
-                
-                // Formulaire
-                'form_name': 'Nom complet',
-                'form_email': 'Email',
-                'form_subject': 'Sujet',
-                'form_message': 'Message',
-                'form_submit': 'Envoyer le message',
-                
-                // Messages
-                'form_success': 'Message envoyé avec succès !',
-                'form_error': 'Une erreur est survenue. Veuillez réessayer.',
-                
-                // Bulle de remerciement
-                'thank_you_title': 'Merci pour votre message !',
-                'thank_you_message': 'Votre message a bien été envoyé. Je vous répondrai dans les plus brefs délais.',
-                'thank_you_home': 'Retour à l\'accueil',
-                'thank_you_journey': 'Voir mon parcours',
-                
-                // Footer
-                'rights': 'Tous droits réservés'
-            },
-            'en': {
-                // Navigation
-                'nav_home': 'Home',
-                'nav_academic': 'Academic Journey',
-                'nav_experience': 'Experiences',
-                'nav_certifications': 'Certifications',
-                'nav_contact': 'Contact',
-                
-                // Titres
-                'contact_title': 'Contact - Mohamed Saïd Diallo',
-                'contact_header': 'Contact Me',
-                'contact_info_title': 'My Contact Information',
-                'contact_form_title': 'Contact Form',
-                
-                // Contact info
-                'contact_email': 'Email :',
-                'contact_phone': 'Phone :',
-                'contact_address': 'Address :',
-                'contact_city': 'Rouen, France',
-                
-                // Formulaire
-                'form_name': 'Full name',
-                'form_email': 'Email',
-                'form_subject': 'Subject',
-                'form_message': 'Message',
-                'form_submit': 'Send message',
-                
-                // Messages
-                'form_success': 'Message sent successfully!',
-                'form_error': 'An error occurred. Please try again.',
-                
-                // Bulle de remerciement
-                'thank_you_title': 'Thank you for your message!',
-                'thank_you_message': 'Your message has been sent successfully. I will get back to you as soon as possible.',
-                'thank_you_home': 'Return to home',
-                'thank_you_journey': 'View my journey',
-                
-                // Footer
-                'rights': 'All rights reserved'
-            }
-        };
+        // ============ LOADER ============
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
 
-        // ============ FONCTIONS ============
-        // Changer la langue
-        function changeLanguage(lang) {
-            // Sauvegarder la langue sélectionnée
-            localStorage.setItem('language', lang);
-            
-            // Mettre à jour les boutons de langue
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === lang.toUpperCase()) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Traduire le contenu
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-
-            // Mettre à jour l'attribut lang de l'HTML
-            document.documentElement.lang = lang;
-            
-            // Mettre à jour le titre de la page
-            if (translations[lang] && translations[lang]['contact_title']) {
-                document.title = translations[lang]['contact_title'];
-            }
-        }
-
-        // Mode sombre
+        // ============ DARK MODE ============
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const icon = document.querySelector('.dark-mode-toggle i');
@@ -720,17 +808,118 @@
             }
         }
 
-        // ============ GESTION DU FORMULAIRE ============
-        document.addEventListener("DOMContentLoaded", function() {
-            // Vérifier le mode sombre au chargement
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                const icon = document.querySelector('.dark-mode-toggle i');
-                icon.classList.replace('fa-moon', 'fa-sun');
+        // Vérifier le mode sombre au chargement
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // ============ LANGUE ============
+        const translations = {
+            'fr': {
+                'contact_title': 'Contact - Mohamed Saïd Diallo',
+                'contact_header': 'Me Contacter',
+                'contact_info_title': 'Mes Coordonnées',
+                'contact_form_title': 'Formulaire de Contact',
+                'contact_email': 'Email :',
+                'contact_phone': 'Téléphone :',
+                'contact_address': 'Adresse :',
+                'contact_city': 'Rouen, France',
+                'form_name': 'Nom complet',
+                'form_email': 'Email',
+                'form_subject': 'Sujet',
+                'form_message': 'Message',
+                'form_submit': 'Envoyer le message',
+                'thank_you_title': 'Merci pour votre message !',
+                'thank_you_message': 'Votre message a bien été envoyé. Je vous répondrai dans les plus brefs délais.',
+                'thank_you_home': 'Retour à l\'accueil',
+                'thank_you_journey': 'Voir mon parcours',
+                'rights': 'Tous droits réservés',
+                'nav_home': 'Accueil',
+                'nav_education': 'Parcours Académique',
+                'nav_experience': 'Expériences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact'
+            },
+            'en': {
+                'contact_title': 'Contact - Mohamed Saïd Diallo',
+                'contact_header': 'Contact Me',
+                'contact_info_title': 'My Contact Information',
+                'contact_form_title': 'Contact Form',
+                'contact_email': 'Email :',
+                'contact_phone': 'Phone :',
+                'contact_address': 'Address :',
+                'contact_city': 'Rouen, France',
+                'form_name': 'Full name',
+                'form_email': 'Email',
+                'form_subject': 'Subject',
+                'form_message': 'Message',
+                'form_submit': 'Send message',
+                'thank_you_title': 'Thank you for your message!',
+                'thank_you_message': 'Your message has been sent successfully. I will get back to you as soon as possible.',
+                'thank_you_home': 'Return to home',
+                'thank_you_journey': 'View my journey',
+                'rights': 'All rights reserved',
+                'nav_home': 'Home',
+                'nav_education': 'Academic Journey',
+                'nav_experience': 'Experiences',
+                'nav_certifications': 'Certifications',
+                'nav_contact': 'Contact'
+            },
+            'ar': {
+                'contact_title': 'اتصل - محمد سعيد ديلو',
+                'contact_header': 'اتصل بي',
+                'contact_info_title': 'معلومات الاتصال',
+                'contact_form_title': 'نموذج الاتصال',
+                'contact_email': 'البريد الإلكتروني :',
+                'contact_phone': 'الهاتف :',
+                'contact_address': 'العنوان :',
+                'contact_city': 'روان، فرنسا',
+                'form_name': 'الاسم الكامل',
+                'form_email': 'البريد الإلكتروني',
+                'form_subject': 'الموضوع',
+                'form_message': 'الرسالة',
+                'form_submit': 'إرسال الرسالة',
+                'thank_you_title': 'شكرًا لك على رسالتك!',
+                'thank_you_message': 'تم إرسال رسالتك بنجاح. سأرد عليك في أقرب وقت ممكن.',
+                'thank_you_home': 'العودة إلى الصفحة الرئيسية',
+                'thank_you_journey': 'عرض مساري',
+                'rights': 'جميع الحقوق محفوظة',
+                'nav_home': 'الصفحة الرئيسية',
+                'nav_education': 'المسار الأكاديمي',
+                'nav_experience': 'الخبرات',
+                'nav_certifications': 'الشهادات',
+                'nav_contact': 'اتصل'
             }
+        };
+
+        function changeLanguage(lang) {
+            // Mettre à jour le menu déroulant
+            document.querySelector('.language-select').value = lang;
             
+            // Traduire le contenu
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                element.textContent = translations[lang][key] || element.textContent;
+            });
+
+            // Mettre à jour l'attribut lang de l'HTML
+            document.documentElement.lang = lang;
+            
+            // Sauvegarder la langue dans localStorage
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Synchroniser avec les autres pages
+            if (window.syncLanguage) {
+                window.syncLanguage(lang);
+            }
+        }
+
+        // ============ GESTION DU FORMULAIRE ============
+        document.addEventListener('DOMContentLoaded', function() {
             // Vérifier la langue au chargement
-            const savedLang = localStorage.getItem('language') || 'fr';
+            const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
             changeLanguage(savedLang);
             
             // Mettre à jour l'année courante
@@ -793,8 +982,8 @@
                             throw new Error(data.message || "Erreur lors de l'envoi");
                         }
                     } catch (error) {
-                        const lang = localStorage.getItem('language') || 'fr';
-                        formMessage.textContent = translations[lang]['form_error'];
+                        const lang = localStorage.getItem('preferredLanguage') || 'fr';
+                        formMessage.textContent = translations[lang]['form_error'] || "Une erreur est survenue";
                         formMessage.className = "form-message error";
                         formMessage.style.display = 'block';
                         console.error('Erreur:', error);
@@ -811,6 +1000,11 @@
                 thankYouBubble.style.display = 'none';
             });
         });
+
+        // Fonction pour synchroniser la langue entre les pages
+        window.syncLanguage = function(lang) {
+            changeLanguage(lang);
+        };
     </script>
 </body>
 </html>
