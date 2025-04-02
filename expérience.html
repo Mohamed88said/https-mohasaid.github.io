@@ -6,27 +6,23 @@
     <title data-i18n="experience_title">Expériences Professionnelles - Mohamed Saïd Diallo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Favicon Standard -->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-
-<!-- Pour Apple/Safari -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-<!-- Android -->
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-
-<!-- Web Manifest -->
-<link rel="manifest" href="site.webmanifest">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <link rel="manifest" href="site.webmanifest">
+    
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
+            --primary: #1a0033;
+            --secondary: #330000;
             --accent: #e74c3c;
             --light: #ecf0f1;
-            --dark: #2c3e50;
+            --dark: #121212;
             --text-light: #ffffff;
             --text-dark: #333333;
             --transition: all 0.3s ease;
@@ -49,81 +45,46 @@
 
         /* Mode Sombre */
         body.dark-mode {
-            background-color: #121212;
+            background-color: var(--dark);
             color: var(--text-light);
         }
 
-        body.dark-mode .experience-container,
         body.dark-mode .experience-card {
             background: #222;
-            color: var(--text-light);
+            border-left-color: #444;
         }
 
-        body.dark-mode footer {
-            background: #111;
+        body.dark-mode .skill-tag {
+            background: #333;
         }
 
-        /* Bouton Mode Sombre */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: var(--secondary);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .dark-mode-toggle i {
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Bouton Langue */
-        .language-switcher {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 5px;
-        }
-        
-        .language-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-        }
-        
-        .language-btn.active {
-            background: var(--secondary);
-        }
-
-        /* Header */
+        /* Header animé */
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a2b3d 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #330000, #1a0033, #000033, #33001a);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
 
         h1, h2, h3 {
@@ -134,15 +95,18 @@
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: textGlow 3s ease-in-out infinite alternate;
         }
 
-        /* Navigation */
+        /* Navigation animée */
         nav {
             display: flex;
             justify-content: center;
             background: rgba(0,0,0,0.1);
             padding: 15px;
             backdrop-filter: blur(5px);
+            margin-top: 20px;
         }
 
         nav a {
@@ -153,34 +117,39 @@
             border-radius: 30px;
             transition: var(--transition);
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 77, 0.3), transparent);
+            transition: all 0.5s ease;
         }
 
         nav a:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Contenu principal */
-        .intro {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--text-dark);
+        nav a:hover::before {
+            left: 100%;
         }
 
-        body.dark-mode .intro {
-            color: var(--text-light);
-        }
-
-        /* Expériences */
-        .experience-container {
+        /* Conteneurs */
+        .container {
             max-width: 900px;
             margin: 40px auto;
             padding: 20px;
         }
 
+        /* Cartes d'expérience avec animation */
         .experience-card {
             background: white;
             border-radius: 8px;
@@ -188,18 +157,31 @@
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: var(--transition);
-            opacity: 0;
-            transform: translateY(20px);
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
         }
 
-        .experience-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .experience-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,77,77,0.1), rgba(77,121,255,0.1));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
         }
 
         .experience-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .experience-card:hover::after {
+            opacity: 1;
         }
 
         .experience-header {
@@ -208,20 +190,28 @@
             align-items: center;
             margin-bottom: 15px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .experience-title {
             font-size: 1.4rem;
-            color: var(--secondary);
+            color: var(--accent);
             margin-bottom: 5px;
         }
 
         .experience-date {
-            background: var(--secondary);
+            background: var(--accent);
             color: white;
-            padding: 5px 10px;
+            padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .experience-card:hover .experience-date {
+            background: linear-gradient(90deg, var(--accent), #4d79ff);
+            transform: scale(1.05);
         }
 
         .experience-company {
@@ -233,60 +223,186 @@
 
         .experience-company i {
             margin-right: 8px;
-            color: var(--secondary);
+            color: var(--accent);
         }
 
-        .experience-description {
-            margin-top: 15px;
-            line-height: 1.6;
+        .experience-description ul {
+            padding-left: 20px;
+            margin-top: 10px;
         }
 
+        .experience-description li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .experience-description li::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* Compétences */
         .skills-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .skill-tag {
             background: var(--light);
-            color: var(--secondary);
-            padding: 5px 12px;
+            color: var(--accent);
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            border: 1px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
         }
 
         body.dark-mode .skill-tag {
             background: #333;
+            color: var(--accent);
         }
 
-        /* Footer */
+        body.dark-mode .skill-tag:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Footer comme sur la page d'accueil */
         footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--primary);
+            padding: 15px 20px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             position: fixed;
             bottom: 0;
             width: 100%;
             z-index: 10;
         }
-        
-        .social-links {
-            margin-top: 10px;
+
+        .footer-left {
+            flex: 1;
+            text-align: left;
         }
-        
+
+        .footer-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
         .social-links a {
             color: white;
-            margin: 0 10px;
-            font-size: 1.2rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
             transition: var(--transition);
         }
         
         .social-links a:hover {
-            color: var(--secondary);
-            transform: translateY(-3px);
+            background: var(--accent);
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Contrôles (mode sombre + langue) */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .dark-mode-toggle, .language-select {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+
+        .dark-mode-toggle:hover, .language-select:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--accent), #4d79ff);
+        }
+
+        .language-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 30px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(77, 121, 255, 0.6);
+            }
         }
 
         /* Responsive */
@@ -309,41 +425,70 @@
                 padding: 8px 15px;
             }
             
-            .language-switcher {
-                top: 70px;
+            .controls {
+                top: 10px;
+                right: 10px;
+            }
+            
+            footer {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .footer-left, .footer-center, .footer-right {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .social-links {
+                gap: 12px;
+            }
+            
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .copyright {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <button class="language-btn active" onclick="changeLanguage('fr')">FR</button>
-        <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+    <!-- Contrôles -->
+    <div class="controls">
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+            <i class="fas fa-moon"></i>
+        </button>
+        <select class="language-select" onchange="changeLanguage(this.value)">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+            <option value="es">ES</option>
+            <option value="de">DE</option>
+            <option value="pt">PT</option>
+        </select>
     </div>
 
     <header>
-        <h1 data-i18n="experience_header">Mes Expériences Professionnelles</h1>
-        <nav>
-            <a href="index.html" data-i18n="nav_home">Accueil</a>
-            <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
-            <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
-            <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
-            <a href="contact.html" data-i18n="nav_contact">Contact</a>
-        </nav>
+        <div class="animated-bg"></div>
+        <div class="header-content">
+            <h1 data-i18n="experience_title">Expériences Professionnelles</h1>
+            <nav>
+                <a href="index.html" data-i18n="nav_home">Accueil</a>
+                <a href="Parcoursacadémique.html" data-i18n="nav_academic">Parcours Académique</a>
+                <a href="expérience.html" data-i18n="nav_experience">Expériences</a>
+                <a href="certification.html" data-i18n="nav_certifications">Certifications</a>
+                <a href="contact.html" data-i18n="nav_contact">Contact</a>
+            </nav>
+        </div>
     </header>
 
-    <section class="intro">
-        <p data-i18n="experience_intro">Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.</p>
-    </section>
-
-    <section class="experience-container">
-        <!-- Stage en Banque -->
+    <main class="container">
+        <!-- Expérience 1 -->
         <div class="experience-card">
             <div class="experience-header">
                 <div>
@@ -356,7 +501,7 @@
                 <span class="experience-date" data-i18n="exp1_date">Juillet 2023 - Septembre 2023</span>
             </div>
             <div class="experience-description">
-                <p data-i18n="exp1_desc1">Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :</p>
+                <p data-i18n="exp1_desc">Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes :</p>
                 <ul>
                     <li data-i18n="exp1_resp1">Accueil et conseil clientèle</li>
                     <li data-i18n="exp1_resp2">Participation aux opérations de prospection</li>
@@ -372,13 +517,13 @@
             </div>
         </div>
 
-        <!-- Responsable débats -->
+        <!-- Expérience 2 -->
         <div class="experience-card">
             <div class="experience-header">
                 <div>
                     <h2 class="experience-title" data-i18n="exp2_title">Responsable débats LCIn</h2>
                     <div class="experience-company">
-                        <i class="fas fa-store"></i>
+                        <i class="fas fa-users"></i>
                         <span data-i18n="exp2_company">Organisation Universitaire</span>
                     </div>
                 </div>
@@ -394,64 +539,46 @@
                 <span class="skill-tag" data-i18n="skill8">Planification</span>
             </div>
         </div>
-    </section>
+    </main>
 
     <footer>
-        <p>&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span>.</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <div class="footer-left">
+            <p class="copyright">&copy; <span id="currentYear"></span> Mohamed Saïd Diallo - <span data-i18n="rights">Tous droits réservés</span></p>
+        </div>
+        <div class="footer-center">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-right">
+            <!-- Espace pour éventuel contenu supplémentaire -->
         </div>
     </footer>
 
     <script>
-        // ============ DARK MODE ============
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const icon = document.querySelector('.dark-mode-toggle i');
-            
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        }
-
-        // ============ LANGUE ============
+        // ============ TRADUCTIONS ============
         const translations = {
             'fr': {
-                // Navigation
+                'experience_title': 'Expériences Professionnelles',
                 'nav_home': 'Accueil',
                 'nav_academic': 'Parcours Académique',
                 'nav_experience': 'Expériences',
                 'nav_certifications': 'Certifications',
                 'nav_contact': 'Contact',
-                
-                // Titres
-                'experience_title': 'Expériences Professionnelles - Mohamed Saïd Diallo',
-                'experience_header': 'Mes Expériences Professionnelles',
-                'experience_intro': 'Découvrez mon parcours professionnel et les compétences acquises au fil de mes expériences.',
-                
-                // Expérience 1
                 'exp1_title': 'Stage en Banque',
                 'exp1_company': 'UBA Guinée',
                 'exp1_date': 'Juillet 2023 - Septembre 2023',
-                'exp1_desc1': 'Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes. Responsabilités incluant :',
+                'exp1_desc': 'Immersion complète dans le secteur bancaire avec participation active aux opérations quotidiennes :',
                 'exp1_resp1': 'Accueil et conseil clientèle',
                 'exp1_resp2': 'Participation aux opérations de prospection',
                 'exp1_resp3': 'Analyse des dossiers de financement',
                 'exp1_resp4': 'Découverte des outils bancaires internes',
-                
-                // Expérience 2
                 'exp2_title': 'Responsable débats LCIn',
                 'exp2_company': 'Organisation Universitaire',
                 'exp2_date': '2021 - 2022',
                 'exp2_desc': 'En tant que responsable de l\'Axe Débat au LCIn, j\'animais des débats, organisais des événements et préparais des sujets de discussion sur des thématiques variées. J\'avais également sous ma responsabilité une équipe de 10 personnes, que je coordonnais pour assurer le bon déroulement des activités et favoriser des échanges constructifs et dynamiques.',
-                
-                // Compétences
                 'skill1': 'Relation client',
                 'skill2': 'Analyse financière',
                 'skill3': 'Prospection',
@@ -460,40 +587,27 @@
                 'skill6': 'Gestion de budget',
                 'skill7': 'Trésorerie',
                 'skill8': 'Planification',
-                
-                // Footer
                 'rights': 'Tous droits réservés'
             },
             'en': {
-                // Navigation
+                'experience_title': 'Professional Experiences',
                 'nav_home': 'Home',
-                'nav_academic': 'Academic Journey',
+                'nav_academic': 'Academic Path',
                 'nav_experience': 'Experiences',
                 'nav_certifications': 'Certifications',
                 'nav_contact': 'Contact',
-                
-                // Titres
-                'experience_title': 'Professional Experiences - Mohamed Saïd Diallo',
-                'experience_header': 'My Professional Experiences',
-                'experience_intro': 'Discover my professional journey and the skills acquired through my experiences.',
-                
-                // Expérience 1
                 'exp1_title': 'Bank Internship',
                 'exp1_company': 'UBA Guinea',
                 'exp1_date': 'July 2023 - September 2023',
-                'exp1_desc1': 'Complete immersion in the banking sector with active participation in daily operations. Responsibilities included:',
+                'exp1_desc': 'Complete immersion in the banking sector with active participation in daily operations:',
                 'exp1_resp1': 'Customer reception and advice',
                 'exp1_resp2': 'Participation in prospecting operations',
                 'exp1_resp3': 'Analysis of financing files',
                 'exp1_resp4': 'Discovery of internal banking tools',
-                
-                // Expérience 2
                 'exp2_title': 'Debate Manager LCIn',
                 'exp2_company': 'University Organization',
                 'exp2_date': '2021 - 2022',
                 'exp2_desc': 'As head of the Debate Axis at LCIn, I moderated debates, organized events and prepared discussion topics on various themes. I was also responsible for a team of 10 people, whom I coordinated to ensure the smooth running of activities and promote constructive and dynamic exchanges.',
-                
-                // Compétences
                 'skill1': 'Customer relationship',
                 'skill2': 'Financial analysis',
                 'skill3': 'Prospecting',
@@ -502,65 +616,209 @@
                 'skill6': 'Budget management',
                 'skill7': 'Treasury',
                 'skill8': 'Planning',
-                
-                // Footer
                 'rights': 'All rights reserved'
+            },
+            'ar': {
+                'experience_title': 'الخبرات المهنية',
+                'nav_home': 'الصفحة الرئيسية',
+                'nav_academic': 'المسار الأكاديمي',
+                'nav_experience': 'الخبرات',
+                'nav_certifications': 'الشهادات',
+                'nav_contact': 'اتصل',
+                'exp1_title': 'تدريب في البنك',
+                'exp1_company': 'يو بي إيه غينيا',
+                'exp1_date': 'يوليو 2023 - سبتمبر 2023',
+                'exp1_desc': 'انغماس كامل في القطاع المصرفي مع المشاركة الفعالة في العمليات اليومية:',
+                'exp1_resp1': 'استقبال العملاء وتقديم النصائح',
+                'exp1_resp2': 'المشاركة في عمليات البحث عن العملاء',
+                'exp1_resp3': 'تحليل ملفات التمويل',
+                'exp1_resp4': 'اكتشاف الأدوات المصرفية الداخلية',
+                'exp2_title': 'مسؤول المناظرات LCIn',
+                'exp2_company': 'منظمة جامعية',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'كمسؤول عن محور المناظرات في LCIn، قمت بتيسير المناقشات وتنظيم الفعاليات وإعداد موضوعات النقاش حول مواضيع متنوعة. كنت أيضًا مسؤولًا عن فريق مكون من 10 أشخاص، وقمت بتنسيق عملهم لضمان سير الأنشطة بسلاسة وتعزيز التبادلات البناءة والديناميكية.',
+                'skill1': 'علاقات العملاء',
+                'skill2': 'التحليل المالي',
+                'skill3': 'البحث عن العملاء',
+                'skill4': 'إدارة الحسابات',
+                'skill5': 'إدارة الفريق',
+                'skill6': 'إدارة الميزانية',
+                'skill7': 'الخزينة',
+                'skill8': 'التخطيط',
+                'rights': 'جميع الحقوق محفوظة'
+            },
+            'es': {
+                'experience_title': 'Experiencias Profesionales',
+                'nav_home': 'Inicio',
+                'nav_academic': 'Trayectoria Académica',
+                'nav_experience': 'Experiencias',
+                'nav_certifications': 'Certificaciones',
+                'nav_contact': 'Contacto',
+                'exp1_title': 'Prácticas Bancarias',
+                'exp1_company': 'UBA Guinea',
+                'exp1_date': 'Julio 2023 - Septiembre 2023',
+                'exp1_desc': 'Inmersión completa en el sector bancario con participación activa en las operaciones diarias:',
+                'exp1_resp1': 'Recepción y asesoramiento al cliente',
+                'exp1_resp2': 'Participación en operaciones de prospección',
+                'exp1_resp3': 'Análisis de expedientes de financiación',
+                'exp1_resp4': 'Descubrimiento de herramientas bancarias internas',
+                'exp2_title': 'Responsable de Debates LCIn',
+                'exp2_company': 'Organización Universitaria',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'Como responsable del Eje de Debate en LCIn, moderaba debates, organizaba eventos y preparaba temas de discusión sobre diversas temáticas. También tenía bajo mi responsabilidad un equipo de 10 personas, a quienes coordinaba para garantizar el buen desarrollo de las actividades y fomentar intercambios constructivos y dinámicos.',
+                'skill1': 'Relación con clientes',
+                'skill2': 'Análisis financiero',
+                'skill3': 'Prospección',
+                'skill4': 'Gestión de cuentas',
+                'skill5': 'Gestión de equipos',
+                'skill6': 'Gestión presupuestaria',
+                'skill7': 'Tesorería',
+                'skill8': 'Planificación',
+                'rights': 'Todos los derechos reservados'
+            },
+            'de': {
+                'experience_title': 'Berufserfahrungen',
+                'nav_home': 'Startseite',
+                'nav_academic': 'Akademischer Werdegang',
+                'nav_experience': 'Erfahrungen',
+                'nav_certifications': 'Zertifizierungen',
+                'nav_contact': 'Kontakt',
+                'exp1_title': 'Bankpraktikum',
+                'exp1_company': 'UBA Guinea',
+                'exp1_date': 'Juli 2023 - September 2023',
+                'exp1_desc': 'Vollständiges Eintauchen in den Bankensektor mit aktiver Teilnahme am Tagesgeschäft:',
+                'exp1_resp1': 'Kundenempfang und Beratung',
+                'exp1_resp2': 'Beteiligung an Akquisitionsmaßnahmen',
+                'exp1_resp3': 'Analyse von Finanzierungsanträgen',
+                'exp1_resp4': 'Entdeckung interner Banktools',
+                'exp2_title': 'Debattenleiter LCIn',
+                'exp2_company': 'Universitätsorganisation',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'Als Leiter der Debattenachse bei LCIn moderierte ich Debatten, organisierte Veranstaltungen und bereitete Diskussionsthemen zu verschiedenen Themen vor. Ich war auch für ein Team von 10 Personen verantwortlich, das ich koordinierte, um den reibungslosen Ablauf der Aktivitäten zu gewährleisten und konstruktiven und dynamischen Austausch zu fördern.',
+                'skill1': 'Kundenbeziehungen',
+                'skill2': 'Finanzanalyse',
+                'skill3': 'Akquise',
+                'skill4': 'Kontoverwaltung',
+                'skill5': 'Teamleitung',
+                'skill6': 'Budgetverwaltung',
+                'skill7': 'Kasse',
+                'skill8': 'Planung',
+                'rights': 'Alle Rechte vorbehalten'
+            },
+            'pt': {
+                'experience_title': 'Experiências Profissionais',
+                'nav_home': 'Início',
+                'nav_academic': 'Percurso Académico',
+                'nav_experience': 'Experiências',
+                'nav_certifications': 'Certificações',
+                'nav_contact': 'Contacto',
+                'exp1_title': 'Estágio Bancário',
+                'exp1_company': 'UBA Guiné',
+                'exp1_date': 'Julho 2023 - Setembro 2023',
+                'exp1_desc': 'Imersão completa no setor bancário com participação ativa nas operações diárias:',
+                'exp1_resp1': 'Recepção e aconselhamento de clientes',
+                'exp1_resp2': 'Participação em operações de prospeção',
+                'exp1_resp3': 'Análise de dossiês de financiamento',
+                'exp1_resp4': 'Descoberta de ferramentas bancárias internas',
+                'exp2_title': 'Responsável por Debates LCIn',
+                'exp2_company': 'Organização Universitária',
+                'exp2_date': '2021 - 2022',
+                'exp2_desc': 'Como responsável pelo Eixo de Debate no LCIn, moderei debates, organizei eventos e preparei tópicos de discussão sobre vários temas. Também fui responsável por uma equipa de 10 pessoas, que coordenei para garantir o bom desenvolvimento das atividades e promover trocas construtivas e dinâmicas.',
+                'skill1': 'Relação com clientes',
+                'skill2': 'Análise financeira',
+                'skill3': 'Prospeção',
+                'skill4': 'Gestão de contas',
+                'skill5': 'Gestão de equipa',
+                'skill6': 'Gestão orçamental',
+                'skill7': 'Tesouraria',
+                'skill8': 'Planeamento',
+                'rights': 'Todos os direitos reservados'
             }
         };
 
-        function changeLanguage(lang) {
-            // Sauvegarder la langue sélectionnée
-            localStorage.setItem('language', lang);
+        // ============ FONCTIONS ============
+        function toggleDarkMode() {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
             
-            // Mettre à jour les boutons de langue
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === lang.toUpperCase()) {
-                    btn.classList.add('active');
-                }
-            });
+            const icon = document.querySelector('.dark-mode-toggle i');
+            if (icon) {
+                icon.classList.toggle('fa-moon', !isDarkMode);
+                icon.classList.toggle('fa-sun', isDarkMode);
+            }
+            
+            // Déclencher un événement personnalisé pour synchroniser les autres pages
+            window.dispatchEvent(new Event('storage'));
+        }
 
-            // Traduire le contenu
+        function changeLanguage(lang) {
+            if (!translations[lang]) lang = 'fr';
+            
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Mettre à jour le sélecteur
+            const select = document.querySelector('.language-select');
+            if (select) select.value = lang;
+            
+            // Appliquer les traductions
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
+                if (translations[lang][key]) {
                     element.textContent = translations[lang][key];
                 }
             });
 
-            // Mettre à jour l'attribut lang de l'HTML
             document.documentElement.lang = lang;
             
-            // Mettre à jour le titre de la page
-            if (translations[lang] && translations[lang]['experience_title']) {
-                document.title = translations[lang]['experience_title'];
+            // Mettre à jour le titre
+            if (translations[lang]['experience_title']) {
+                document.title = translations[lang]['experience_title'] + ' - Mohamed Saïd Diallo';
             }
+            
+            // Déclencher un événement pour synchroniser les autres pages
+            window.dispatchEvent(new Event('storage'));
         }
 
-        // ============ INITIALISATION ============
-        document.addEventListener("DOMContentLoaded", function() {
-            // Vérifier le mode sombre au chargement
+        // Appliquer les préférences au chargement
+        function applyPreferences() {
+            // Mode sombre
             if (localStorage.getItem('darkMode') === 'enabled') {
                 document.body.classList.add('dark-mode');
                 const icon = document.querySelector('.dark-mode-toggle i');
-                icon.classList.replace('fa-moon', 'fa-sun');
+                if (icon) icon.classList.replace('fa-moon', 'fa-sun');
             }
             
-            // Vérifier la langue au chargement
-            const savedLang = localStorage.getItem('language') || 'fr';
-            changeLanguage(savedLang);
+            // Langue
+            const lang = localStorage.getItem('preferredLanguage') || 'fr';
+            changeLanguage(lang);
             
-            // Mettre à jour l'année courante
+            // Année du footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+
+        // Synchroniser les changements entre onglets
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'darkMode') {
+                const darkModeEnabled = event.newValue === 'enabled';
+                document.body.classList.toggle('dark-mode', darkModeEnabled);
+                const icon = document.querySelector('.dark-mode-toggle i');
+                if (icon) {
+                    icon.classList.toggle('fa-moon', !darkModeEnabled);
+                    icon.classList.toggle('fa-sun', darkModeEnabled);
+                }
+            }
             
-            // Animation des cartes
-            const cards = document.querySelectorAll('.experience-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('visible');
-                }, 200 * index);
-            });
+            if (event.key === 'preferredLanguage') {
+                changeLanguage(event.newValue || 'fr');
+            }
         });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', applyPreferences);
+
+        // Exposer les fonctions globalement
+        window.toggleDarkMode = toggleDarkMode;
+        window.changeLanguage = changeLanguage;
     </script>
 </body>
 </html>
