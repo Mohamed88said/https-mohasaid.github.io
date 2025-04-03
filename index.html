@@ -12,13 +12,14 @@
     <!-- Police spécifique pour les versets coraniques en arabe -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ID à saisir quand je saurais le faire HAHAHHAAHHAHAHAH"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT25QS5BC5"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VOTREID');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JT25QS5BC5');
     </script>
 
     <!-- Favicon Standard -->
@@ -569,8 +570,17 @@
             margin: 40px 0;
         }
 
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
         .cta-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 12px 30px;
             background: var(--secondary);
             color: white;
@@ -578,12 +588,18 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            margin: 10px;
             border: none;
             cursor: pointer;
             font-size: 1rem;
             position: relative;
             overflow: hidden;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button i {
+            margin-right: 10px;
+            font-size: 1.1em;
         }
 
         .cta-button::after {
@@ -602,7 +618,7 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 7px 15px rgba(52, 152, 219, 0.4);
         }
 
         .cta-button:hover::after {
@@ -770,6 +786,111 @@
             z-index: 999;
         }
 
+        /* Nouveau style pour la bulle de choix de CV */
+        .cv-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .cv-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cv-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .cv-modal.active .cv-modal-content {
+            transform: translateY(0);
+        }
+
+        .cv-modal h3 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .cv-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .cv-option-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .cv-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .cv-option-btn.secondary {
+            background: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        body.dark-mode .cv-modal-content {
+            background: #333;
+            color: white;
+        }
+
+        body.dark-mode .cv-option-btn.secondary {
+            background: #222;
+            color: var(--secondary);
+        }
+
+        /* Animation douce pour les sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-section {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Délais d'animation pour chaque section */
+        .hero { animation-delay: 0.2s; }
+        .container:nth-child(1) { animation-delay: 0.4s; }
+        .container:nth-child(2) { animation-delay: 0.6s; }
+        .container:nth-child(3) { animation-delay: 0.8s; }
+        .container:nth-child(4) { animation-delay: 1.0s; }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero {
@@ -862,6 +983,16 @@
             .reminder-tooltip::after {
                 left: 100px;
             }
+
+            /* Boutons responsive */
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -873,6 +1004,18 @@
 
     <!-- Confettis Canvas -->
     <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+
+    <!-- Modal pour le choix du CV -->
+    <div class="cv-modal" id="cvModal">
+        <div class="cv-modal-content">
+            <h3 data-i18n="chooseCV">Choisissez la version du CV</h3>
+            <div class="cv-options">
+                <button class="cv-option-btn" onclick="downloadCV('fr')" data-i18n="french">Français</button>
+                <button class="cv-option-btn secondary" onclick="downloadCV('en')" data-i18n="english">English</button>
+            </div>
+            <button class="cv-option-btn" style="margin-top: 20px; background: var(--accent);" onclick="closeCVModal()" data-i18n="cancel">Annuler</button>
+        </div>
+    </div>
 
     <!-- Mode sombre à apprendre à mieux présenter -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
@@ -903,7 +1046,7 @@
         </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero animated-section">
         <div class="photo-wrapper">
             <div class="photo-container" 
                  onmouseover="animatePhoto('in')" 
@@ -918,19 +1061,19 @@
             <p class="tagline" data-i18n="tagline">Étudiant en Economie APE | Management</p>
             <p data-i18n="quote">Le succès est la somme de petits efforts répétés jour après jour.</p>
             
-            <div class="cta-container">
-                <a href="contact.html" class="cta-button" data-i18n="contact">Contactez-moi</a>
-                <a href="https://drive.google.com/file/d/1akRujVxCqZ_S1X3PFFgeR7CHPpxRDsCv/view?usp=sharing" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="cta-button secondary download-cv" 
-                   data-i18n="downloadCV">Télécharger mon CV</a>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-button" data-i18n="contact">
+                    <i class="fas fa-envelope"></i> Contactez-moi
+                </a>
+                <button class="cta-button secondary" onclick="openCVModal()" data-i18n="downloadCV">
+                    <i class="fas fa-download"></i> Télécharger mon CV
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Services, ce que je peux -->
-    <section class="container">
+    <section class="container animated-section">
         <h2 data-i18n="services">Mes Services</h2>
         <div class="services-grid">
             <div class="service-card">
@@ -951,7 +1094,7 @@
         </div>
     </section>
 
-    <section class="container">
+    <section class="container animated-section">
         <h2 data-i18n="skills">Compétences</h2>
         <div class="skill">
             <div class="skill-name">
@@ -1009,7 +1152,7 @@
         </div>
     </section>
 
-    <section class="container">
+    <section class="container animated-section">
         <h2 data-i18n="languages">Langues</h2>
         <div class="skill">
             <div class="skill-name">
@@ -1040,7 +1183,7 @@
         </div>
     </section>
 
-    <section class="container">
+    <section class="container animated-section">
         <h2 data-i18n="journey">Mon Parcours</h2>
         <div class="timeline">
             <div class="timeline-point" 
@@ -1078,7 +1221,8 @@
         <div class="footer-center">
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/mohamed-saïdou-diallo-a97728251" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/https://www.facebook.com/me/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/mohamedsaid.diallo/?__pwa=1#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="mailto:mohamedsaiddiallo88@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
@@ -1189,7 +1333,11 @@
                 'service2': 'Gestion Comptable',
                 'service2-desc': 'Tenue de livres et reporting financier',
                 'service3': 'Management de Projet',
-                'service3-desc': 'Planification et suivi de projets complexes'
+                'service3-desc': 'Planification et suivi de projets complexes',
+                'chooseCV': 'Choisissez la version du CV',
+                'french': 'Français',
+                'english': 'English',
+                'cancel': 'Annuler'
             },
             'en': {
                 'about': 'About Me',
@@ -1216,7 +1364,11 @@
                 'service2': 'Accounting Management',
                 'service2-desc': 'Bookkeeping and financial reporting',
                 'service3': 'Project Management',
-                'service3-desc': 'Planning and monitoring of complex projects'
+                'service3-desc': 'Planning and monitoring of complex projects',
+                'chooseCV': 'Choose CV version',
+                'french': 'French',
+                'english': 'English',
+                'cancel': 'Cancel'
             },
             'ar': {
                 'about': 'معلومات عني',
@@ -1243,7 +1395,11 @@
                 'service2': 'إدارة المحاسبة',
                 'service2-desc': 'مسك الدفاتر وإعداد التقارير المالية',
                 'service3': 'إدارة المشاريع',
-                'service3-desc': 'تخطيط ومتابعة المشاريع المعقدة'
+                'service3-desc': 'تخطيط ومتابعة المشاريع المعقدة',
+                'chooseCV': 'اختر نسخة السيرة الذاتية',
+                'french': 'الفرنسية',
+                'english': 'الإنجليزية',
+                'cancel': 'إلغاء'
             },
             'es': {
                 'about': 'Sobre mí',
@@ -1270,7 +1426,11 @@
                 'service2': 'Gestión Contable',
                 'service2-desc': 'Contabilidad e informes financieros',
                 'service3': 'Gestión de Proyectos',
-                'service3-desc': 'Planificación y seguimiento de proyectos complejos'
+                'service3-desc': 'Planificación y seguimiento de proyectos complejos',
+                'chooseCV': 'Elige la versión del CV',
+                'french': 'Francés',
+                'english': 'Inglés',
+                'cancel': 'Cancelar'
             },
             'de': {
                 'about': 'Über mich',
@@ -1297,7 +1457,11 @@
                 'service2': 'Buchhaltungsmanagement',
                 'service2-desc': 'Buchführung und Finanzberichterstattung',
                 'service3': 'Projektmanagement',
-                'service3-desc': 'Planung und Überwachung komplexer Projekte'
+                'service3-desc': 'Planung und Überwachung komplexer Projekte',
+                'chooseCV': 'Wählen Sie die CV-Version',
+                'french': 'Französisch',
+                'english': 'Englisch',
+                'cancel': 'Abbrechen'
             },
             'pt': {
                 'about': 'Sobre mim',
@@ -1324,7 +1488,11 @@
                 'service2': 'Gestão Contabilística',
                 'service2-desc': 'Contabilidade e relatórios financeiros',
                 'service3': 'Gestão de Projetos',
-                'service3-desc': 'Planeamento e acompanhamento de projetos complexos'
+                'service3-desc': 'Planeamento e acompanhamento de projetos complexos',
+                'chooseCV': 'Escolha a versão do CV',
+                'french': 'Francês',
+                'english': 'Inglês',
+                'cancel': 'Cancelar'
             }
         };
 
@@ -1369,7 +1537,7 @@
                 ar: 'وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا ۖ',
                 es: '"Y busca mediante lo que Allah te ha dado la morada del Más Allá, y no olvides tu porción de este mundo."',
                 de: '"Und trachte mit dem, was Allah dir gegeben hat, nach der jenseitigen Wohnstätte, und vergiss nicht deinen Anteil am Diesseits."',
-                pt: '"E procura, através do que Allah te concedeu, a morada do Além, e não esqueças a tua porção deste mundo."',
+                pt: '"E procura, através do que Allah te concedeu, a morada do Além, e não esqueças a tua porción deste mundo."',
                 source: 'Coran 28:77',
                 isQuran: true
             },
@@ -2386,16 +2554,34 @@
             }
         }
 
-        // ============ CV DOWNLOAD ============
-        document.querySelector('.download-cv').addEventListener('click', function() {
+        // ============ CV DOWNLOAD MODAL ============
+        function openCVModal() {
+            document.getElementById('cvModal').classList.add('active');
+        }
+
+        function closeCVModal() {
+            document.getElementById('cvModal').classList.remove('active');
+        }
+
+        function downloadCV(lang) {
             triggerConfetti();
+            closeCVModal();
+            
+            // URLs des CV selon la langue
+            const cvUrls = {
+                'fr': 'https://drive.google.com/file/d/VOTRE_ID_FRANCAIS/view?usp=sharing',
+                'en': 'https://drive.google.com/file/d/VOTRE_ID_ANGLAIS/view?usp=sharing'
+            };
+            
+            // Ouvrir le CV dans un nouvel onglet
+            window.open(cvUrls[lang], '_blank');
             
             // Envoyer un événement à Google Analytics
             gtag('event', 'download', {
                 'event_category': 'CV',
-                'event_label': 'CV_Download'
+                'event_label': 'CV_Download_' + lang.toUpperCase()
             });
-        });
+        }
 
         // ============ ANNÉE COURANTE ============
         document.getElementById('currentYear').textContent = new Date().getFullYear();
